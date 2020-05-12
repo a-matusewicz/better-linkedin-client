@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash.debounce": "^4.0.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
