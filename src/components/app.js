@@ -8,6 +8,9 @@ import {
 import PrivateRoute from '../containers/requireAuth';
 import SignIn from './signin';
 import SignUp from './signup';
+import Event from './event';
+import EventList from './eventlist';
+import CreateEvent from './createevent';
 import { ROOT_URL } from '../actions/index';
 
 const About = (props) => {
@@ -17,6 +20,9 @@ const Welcome = (props) => {
     return (
         <div>
             Welcome, {props.user.username}!
+            <ul>
+                <li><NavLink to="/event" exact>Events</NavLink></li>
+            </ul>
         </div>
     );
 };
@@ -74,6 +80,9 @@ class App extends Component {
                         <Route path="/signin" component={(props) => <SignIn user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/signup" component={(props) => <SignUp user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/about" component={About} />
+                        <Route path="/event" component={(props) => <Event user={this.state.user} />} />
+                        <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
+                        <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
                         <Route component={FallBack} />
                     </Switch>
                 </div>
