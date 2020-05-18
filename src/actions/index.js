@@ -103,3 +103,16 @@ export function fetchUser(token, callback) {
         });
     };
 }
+
+// Post new event then return to events page
+export function createEvent(event, history) {
+    return (dispatch) => {
+        axios.post(`${ROOT_URL}/events/createEvent`, event)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/event');
+                return response.data;
+            });
+    };
+}
