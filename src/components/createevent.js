@@ -17,7 +17,7 @@ class CreateEvent extends Component {
         };
     }
 
-    // Submits create for new event 
+    // Submits create for new event
     handleSubmit = (event) => {
         const form = event.currentTarget;
         const eventName = document.getElementById('event_name').value;
@@ -29,12 +29,12 @@ class CreateEvent extends Component {
             event.preventDefault();
             event.stopPropagation();
         } else {
-            const event = {
+            const newEvent = {
                 eventName,
                 eventTime,
                 eventDesc,
             };
-            this.props.createEvent(event, this.props.history);
+            this.props.createEvent(newEvent, this.props.history);
         }
 
         this.setState({ validated: true });

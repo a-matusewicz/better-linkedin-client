@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    // eslint-disable-next-line no-unused-vars
     BrowserRouter as Router, Route, NavLink, Switch,
 } from 'react-router-dom';
 import Error from './error';
@@ -9,13 +10,10 @@ class Event extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            validated: false,
-        };
+        this.state = {};
     }
 
     render() {
-        const { validated } = this.state;
         return (
             <div className="new-content">
                 <Error />

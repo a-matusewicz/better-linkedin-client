@@ -44,6 +44,7 @@ export function signinUser({ username, password }, history, callback) {
                         callback({
                             auth: response.data.auth,
                             username,
+                            id: response.data.id,
                         });
                     }
                     history.push('/');
@@ -65,6 +66,7 @@ export function createUser(user, history, callback) {
                         callback({
                             auth: response.data.auth,
                             username: user.username,
+                            id: response.data.id,
                         });
                     }
                     history.push('/');
@@ -104,7 +106,7 @@ export function fetchUser(token, callback) {
     };
 }
 
-// Post new event then return to events page 
+// Post new event then return to events page
 export function createEvent(event, history) {
     return (dispatch) => {
         axios.post(`${ROOT_URL}/events/createEvent`, event)
@@ -113,6 +115,20 @@ export function createEvent(event, history) {
             }).then((response) => {
                 history.push('/event');
                 return response.data;
+            });
+    };
+}
+
+// Gets list of events for current user
+export function fetchUserEvents(personId, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/users/getEvents/${personId}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback) {
+                    callback(response.data.data);
+                }
             });
     };
 }
