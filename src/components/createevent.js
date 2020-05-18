@@ -22,7 +22,6 @@ class CreateEvent extends Component {
         const form = event.currentTarget;
         const eventName = document.getElementById('event_name').value;
         const eventTime = document.getElementById('event_time').value;
-        const eventIndustry = document.getElementById('event_industry').value;
         const eventDesc = document.getElementById('event_desc').value;
         this.setState({ validated: false });
         event.preventDefault();
@@ -33,7 +32,6 @@ class CreateEvent extends Component {
             const event = {
                 eventName,
                 eventTime,
-                eventIndustry,
                 eventDesc,
             };
             this.props.createEvent(event, this.props.history);
