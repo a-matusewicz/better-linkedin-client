@@ -132,3 +132,43 @@ export function fetchUserEvents(personId, callback) {
             });
     };
 }
+
+// Gets list of all events
+export function fetchEvents(callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/events/getEvents`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Un-RSVP user from an event
+export function unRSVP(personID, eventID, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}/events/${personID}/${eventID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/event');
+                return response.data;
+            });
+    };
+}
+
+// Un-RSVP user from an event
+export function RSVP(RSVPRecord, history) {
+    return (dispatch) => {
+        axios.post(`${ROOT_URL}/events/RSVP`, RSVPRecord)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/event');
+                return response.data;
+            });
+    };
+}

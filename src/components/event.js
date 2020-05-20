@@ -18,7 +18,8 @@ class Event extends Component {
             <div className="new-content">
                 <Error />
                 <NavLink to="/eventlist" exact>My Events</NavLink>
-                <NavLink to="/createevent" exact>Create Event</NavLink>
+                <NavLink to="/createevent" exact>Create an Event</NavLink>
+                <NavLink to="/joinevent" exact>All Events</NavLink>
             </div>
         );
     }
