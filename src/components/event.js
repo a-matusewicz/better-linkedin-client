@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-    // eslint-disable-next-line no-unused-vars
-    BrowserRouter as Router, Route, NavLink, Switch,
-} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Error from './error';
 
 // Menu page for user to choose between viewing list of their events or creating new event

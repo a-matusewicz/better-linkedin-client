@@ -126,7 +126,7 @@ export function fetchUserEvents(personId, callback) {
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
-                if (callback) {
+                if (callback && response.data.data) {
                     callback(response.data.data);
                 }
             });
@@ -140,7 +140,7 @@ export function fetchEvents(callback) {
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
-                if (callback) {
+                if (callback && response.data.data) {
                     callback(response.data.data);
                 }
             });

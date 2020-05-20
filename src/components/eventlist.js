@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-    // eslint-disable-next-line no-unused-vars
-    withRouter, BrowserRouter as Router, Route, NavLink, Switch,
-} from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import { fetchUserEvents } from '../actions';
 import Error from './error';
 
@@ -29,8 +26,9 @@ class EventList extends Component {
                 {this.state.eventList.map((item) => {
                     return (
                         <li key={item.EventID}>
-                            {/* eslint-disable-next-line max-len */}
-                            <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryID},${1}`} exact>{item.EventName}, {item.EventTime}</NavLink>
+                            <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryID},${1}`} exact>
+                                {item.EventName}, {item.EventTime}
+                            </NavLink>
                         </li>
                     );
                 })}
