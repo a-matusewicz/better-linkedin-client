@@ -22,7 +22,7 @@ class JoinEvent extends Component {
         this.props.fetchUserEvents(this.props.user.id, (userEventList) => {
             const IDList = [];
             // eslint-disable-next-line no-unused-vars
-            for (const [value] of userEventList.entries()) {
+            for (const [index, value] of userEventList.entries()) {
                 IDList.push(value.EventID);
             }
             this.setState({ userEventList: IDList });
