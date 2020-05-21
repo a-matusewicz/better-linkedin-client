@@ -45,7 +45,7 @@ class EventInfo extends Component {
                     {this.props.match.params.name}
                 </div>
                 <div>
-                    {this.props.match.params.time}
+                    {(new Date(this.props.match.params.time)).toLocaleDateString()}
                 </div>
                 <div>
                     {this.handleIndustry()}

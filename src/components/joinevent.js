@@ -39,7 +39,7 @@ class JoinEvent extends Component {
                         return (
                             <li key={item.EventID}>
                                 <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryID},${1}`} exact>
-                                    {item.EventName}, {item.EventTime}
+                                    {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                 </NavLink>
                             </li>
                         );
@@ -47,7 +47,7 @@ class JoinEvent extends Component {
                         return (
                             <li key={item.EventID}>
                                 <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryID},${0}`} exact>
-                                    {item.EventName}, {item.EventTime}
+                                    {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                 </NavLink>
                             </li>
                         );
