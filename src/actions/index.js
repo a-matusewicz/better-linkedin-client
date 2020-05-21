@@ -172,3 +172,17 @@ export function RSVP(RSVPRecord, history) {
             });
     };
 }
+
+// Gets list of all industries
+export function fetchIndustries(callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/industries/getIndustries`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}

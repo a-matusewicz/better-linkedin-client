@@ -38,7 +38,7 @@ class JoinEvent extends Component {
                     if (this.state.userEventList.includes(item.EventID)) {
                         return (
                             <li key={item.EventID}>
-                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryID},${1}`} exact>
+                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1}`} exact>
                                     {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                 </NavLink>
                             </li>
@@ -46,7 +46,7 @@ class JoinEvent extends Component {
                     } else {
                         return (
                             <li key={item.EventID}>
-                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryID},${0}`} exact>
+                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${0}`} exact>
                                     {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                 </NavLink>
                             </li>

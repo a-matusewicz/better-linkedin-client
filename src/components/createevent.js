@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { createEvent } from '../actions';
+import { createEvent, fetchIndustries } from '../actions';
 import Error from './error';
 
 // Create a new event
@@ -14,7 +14,14 @@ class CreateEvent extends Component {
 
         this.state = {
             validated: false,
+            industryList: [],
+            chosenID: 1,
         };
+    }
+
+    componentDidMount() {
+        // Get list of events for current user
+        this.props.fetchIndustries((industryList) => { this.setState({ industryList }); });
     }
 
     // Submits create for new event
@@ -33,11 +40,30 @@ class CreateEvent extends Component {
                 eventName,
                 eventTime,
                 eventDesc,
+                industryID: this.state.chosenID,
             };
             this.props.createEvent(newEvent, this.props.history);
         }
 
         this.setState({ validated: true });
+    }
+
+    handleChange = () => {
+        const newID = document.getElementById('event_industry').value;
+        console.log(newID);
+
+        this.setState({ chosenID: newID });
+    }
+
+    // Retrieves events for current person8
+    getIndustries = () => {
+        return (
+            this.state.industryList.map((item) => {
+                return (
+                    <option key={item.IndustryID} value={item.IndustryID}>{item.IndustryName}</option>
+                );
+            })
+        );
     }
 
     render() {
@@ -78,11 +104,9 @@ class CreateEvent extends Component {
                         </Form.Group>
                         <Form.Group as={Col} controlId="event_industry">
                             <Form.Label>Industry</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Industry"
-                                required
-                            />
+                            <Form.Control as="select" value={this.state.chosenID} onChange={this.handleChange}>
+                                {this.getIndustries()}
+                            </Form.Control>
                             <Form.Control.Feedback type="invalid" id="event-industry-feedback">
                                 Please enter an industry.
                             </Form.Control.Feedback>
@@ -112,4 +136,4 @@ class CreateEvent extends Component {
 
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(null, { createEvent })(CreateEvent));
+export default withRouter(connect(null, { createEvent, fetchIndustries })(CreateEvent));
