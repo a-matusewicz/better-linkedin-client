@@ -116,3 +116,26 @@ export function createEvent(event, history) {
             });
     };
 }
+
+// Post new event then return to events page
+export function editUser(user, history, callback) {
+    return (dispatch) => {
+        axios.put(`${ROOT_URL}/users`, user.username)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (response.data && response.data.auth) {
+                    localStorage.setItem('JWT', response.data.token);
+
+                    if (callback) {
+                        callback({
+                            auth: response.data.auth,
+                            username: user.username,
+                        });
+                    }
+                    history.push('/update');
+                }
+                return response.data;
+            });
+    };
+}

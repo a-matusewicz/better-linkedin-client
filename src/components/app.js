@@ -11,6 +11,7 @@ import SignUp from './signup';
 import Event from './event';
 import EventList from './eventlist';
 import CreateEvent from './createevent';
+import EditU from './editUser';
 import { ROOT_URL } from '../actions/index';
 
 const About = (props) => {
@@ -83,6 +84,7 @@ class App extends Component {
                         <Route path="/event" component={(props) => <Event user={this.state.user} />} />
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
                         <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
+                        <Route path="/update" component={(props) => <EditU user={this.state.user} />} />
                         <Route component={FallBack} />
                     </Switch>
                 </div>
