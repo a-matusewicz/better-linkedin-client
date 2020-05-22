@@ -40,7 +40,7 @@ class JoinEvent extends Component {
                         if (item.OrganizerID === this.props.user.id) {
                             return (
                                 <li key={item.EventID}>
-                                    <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${1},${item.Email}`} exact>
+                                    <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${1},${item.OrganizerEmail}`} exact>
                                         {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                     </NavLink>
                                 </li>
@@ -48,7 +48,7 @@ class JoinEvent extends Component {
                         } else {
                             return (
                                 <li key={item.EventID}>
-                                    <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${0},${item.Email}`} exact>
+                                    <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${0},${item.OrganizerEmail}`} exact>
                                         {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                     </NavLink>
                                 </li>
@@ -57,7 +57,7 @@ class JoinEvent extends Component {
                     } else {
                         return (
                             <li key={item.EventID}>
-                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${0},${0},${item.Email}`} exact>
+                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${0},${0},${item.OrganizerEmail}`} exact>
                                     {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                 </NavLink>
                             </li>

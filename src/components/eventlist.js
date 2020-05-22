@@ -27,7 +27,7 @@ class EventList extends Component {
                     return (
                         <li key={item.EventID}>
                             {/* eslint-disable-next-line max-len */}
-                            <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${item.IsOrganizer},${item.Email}`} exact>
+                            <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${item.IsOrganizer},${item.OrganizerEmail}`} exact>
                                 {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                             </NavLink>
                         </li>
