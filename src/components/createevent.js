@@ -41,6 +41,7 @@ class CreateEvent extends Component {
                 eventTime,
                 eventDesc,
                 industryID: this.state.chosenID,
+                userID: this.props.user.id,
             };
             this.props.createEvent(newEvent, this.props.history);
         }
@@ -50,8 +51,6 @@ class CreateEvent extends Component {
 
     handleChange = () => {
         const newID = document.getElementById('event_industry').value;
-        console.log(newID);
-
         this.setState({ chosenID: newID });
     }
 

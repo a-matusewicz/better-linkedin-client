@@ -186,3 +186,17 @@ export function fetchIndustries(callback) {
             });
     };
 }
+
+// Post new event then return to events page
+export function deleteEvent(eventID, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}/events/${eventID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/event');
+                console.log(response.data);
+                return response.data;
+            });
+    };
+}
