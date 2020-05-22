@@ -6,7 +6,7 @@ const EventList = (props) => {
     return (
         <div className="new-content">
             <Error />
-            Events for {props.user.username}!
+            Events for {props.user.email}!
         </div>
     );
 };
