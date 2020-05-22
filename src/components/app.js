@@ -21,7 +21,7 @@ const About = (props) => {
 const Welcome = (props) => {
     return (
         <div>
-            Welcome, {props.user.username}!
+            Welcome, {props.user.email}!
             <ul>
                 <li><NavLink to="/event" exact>Events</NavLink></li>
             </ul>

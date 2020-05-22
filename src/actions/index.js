@@ -31,9 +31,9 @@ export function authError(error) {
     };
 }
 
-export function signinUser({ username, password }, history, callback) {
+export function signinUser({ email, password }, history, callback) {
     return (dispatch) => {
-        axios.get(`${ROOT_URL}/users/loginUser`, { params: { username, password } })
+        axios.get(`${ROOT_URL}/users/loginUser`, { params: { email, password } })
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
@@ -43,7 +43,7 @@ export function signinUser({ username, password }, history, callback) {
                     if (callback) {
                         callback({
                             auth: response.data.auth,
-                            username,
+                            email,
                             id: response.data.id,
                         });
                     }
@@ -65,7 +65,7 @@ export function createUser(user, history, callback) {
                     if (callback) {
                         callback({
                             auth: response.data.auth,
-                            username: user.username,
+                            email: user.email,
                             id: response.data.id,
                         });
                     }
@@ -98,7 +98,7 @@ export function fetchUser(token, callback) {
                 if (callback) {
                     callback({
                         auth: response.data.auth,
-                        username: response.data.username,
+                        email: response.data.email,
                     });
                 }
             }
