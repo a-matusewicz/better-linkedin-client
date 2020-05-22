@@ -86,7 +86,7 @@ class App extends Component {
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
                         <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
                         <Route path="/joinevent" component={(props) => <JoinEvent user={this.state.user} />} />
-                        <Route path="/eventinfo/:id,:name,:time,:desc,:ind,:participating,:isorg" component={(props) => <EventInfo user={this.state.user} />} />
+                        <Route path="/eventinfo/:id,:name,:time,:desc,:ind,:participating,:isorg,:orgemail" component={(props) => <EventInfo user={this.state.user} />} />
                         <Route component={FallBack} />
                     </Switch>
                 </div>

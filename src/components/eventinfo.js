@@ -55,7 +55,7 @@ class EventInfo extends Component {
                     {this.handleIndustry()}
                 </div>
                 <div>
-                    {this.props.match.params.isorg}
+                    Organizer email: {this.props.match.params.orgemail}
                 </div>
                 <div>
                     {this.props.match.params.desc}

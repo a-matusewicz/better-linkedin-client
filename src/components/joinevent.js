@@ -36,17 +36,28 @@ class JoinEvent extends Component {
                 {this.state.eventList.map((item) => {
                     // If the user is participating in this event already, then pass that info to eventinfo page
                     if (this.state.userEventList.includes(item.EventID)) {
-                        return (
-                            <li key={item.EventID}>
-                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${item.IsOrganizer}`} exact>
-                                    {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
-                                </NavLink>
-                            </li>
-                        );
+                        // If the user is the organizer
+                        if (item.OrganizerID === this.props.user.id) {
+                            return (
+                                <li key={item.EventID}>
+                                    <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${1},${item.email}`} exact>
+                                        {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
+                                    </NavLink>
+                                </li>
+                            );
+                        } else {
+                            return (
+                                <li key={item.EventID}>
+                                    <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${0},${item.email}`} exact>
+                                        {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
+                                    </NavLink>
+                                </li>
+                            );
+                        }
                     } else {
                         return (
                             <li key={item.EventID}>
-                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${0},${item.IsOrganizer}`} exact>
+                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${0},${0},${item.email}`} exact>
                                     {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                 </NavLink>
                             </li>
