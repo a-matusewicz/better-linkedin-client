@@ -227,3 +227,17 @@ export function fetchUserGroups(personId, callback) {
             });
     };
 }
+
+// Gets list of all groups
+export function fetchGroups(callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/groups/getGroups`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import { fetchEvents, fetchUserEvents } from '../actions';
+import { fetchGroups, fetchUserGroups } from '../actions';
 import Error from './error';
 
 // Displays list of groups user is a part of
@@ -11,100 +11,97 @@ class JoinGroup extends Component {
         super(props);
 
         this.state = {
-            eventList: [],
-            userEventList: [],
+            groupList: [],
+            userGroupList: [],
         };
     }
 
     componentDidMount() {
-        // Get list of all events
-        this.props.fetchEvents((eventList) => { this.setState({ eventList }); });
-        // Get list of events for current user
-        this.props.fetchUserEvents(this.props.user.id, (userEventList) => {
+        // Get list of all groups
+        this.props.fetchGroups((groupList) => { this.setState({ groupList }); });
+        // Get list of groups for current user
+        this.props.fetchUserGroups(this.props.user.id, (userGroupList) => {
             const IDList = [];
             // eslint-disable-next-line no-unused-vars
-            for (const [index, value] of userEventList.entries()) {
-                IDList.push(value.EventID);
+            for (const [index, value] of userGroupList.entries()) {
+                IDList.push(value.GroupID);
             }
-            this.setState({ userEventList: IDList });
+            this.setState({ userGroupList: IDList });
         });
     }
 
-    // Retrieves events for current person8
-    getEventsList = () => {
+    // Retrieves groups for current person8
+    getGroupsList = () => {
         return (
             <ul>
-                {this.state.eventList.map((item) => {
-                    // If the user is participating in this event already, then pass that info to eventinfo page
-                    if (this.state.userEventList.includes(item.EventID)) {
+                {this.state.groupList.map((item) => {
+                    // If the user is participating in this group already, then pass that info to groupinfo page
+                    if (this.state.userGroupList.includes(item.GroupID)) {
                         // If the user is the organizer
                         if (item.OrganizerID === this.props.user.id) {
                             return (
-                                <li key={item.EventID}>
+                                <li key={item.GroupID}>
                                     <NavLink exact
                                         to={{
-                                            pathname: '/eventinfo/',
-                                            eventData: {
-                                                id: item.EventID,
-                                                name: item.EventName,
-                                                time: item.EventTime,
-                                                desc: item.EventDescription,
+                                            pathname: '/groupinfo/',
+                                            groupData: {
+                                                id: item.GroupID,
+                                                name: item.GroupName,
+                                                desc: item.GroupDescription,
                                                 ind: item.IndustryName,
                                                 participating: 1,
                                                 isorg: 1,
                                                 orgemail: item.OrganizerEmail,
-                                                originpath: '/joinevent',
+                                                originpath: '/joingroup',
                                             },
                                         }}
                                     >
-                                        {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
+                                        {item.GroupName}
                                     </NavLink>
                                 </li>
                             );
                         } else {
                             return (
-                                <li key={item.EventID}>
+                                <li key={item.GroupID}>
                                     <NavLink exact
                                         to={{
-                                            pathname: '/eventinfo/',
-                                            eventData: {
-                                                id: item.EventID,
-                                                name: item.EventName,
-                                                time: item.EventTime,
-                                                desc: item.EventDescription,
+                                            pathname: '/groupinfo/',
+                                            groupData: {
+                                                id: item.GroupID,
+                                                name: item.GroupName,
+                                                desc: item.GroupDescription,
                                                 ind: item.IndustryName,
                                                 participating: 1,
                                                 isorg: 0,
                                                 orgemail: item.OrganizerEmail,
-                                                originpath: '/joinevent',
+                                                originpath: '/joingroup',
                                             },
                                         }}
                                     >
-                                        {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
+                                        {item.GroupName}
                                     </NavLink>
                                 </li>
                             );
                         }
                     } else {
                         return (
-                            <li key={item.EventID}>
+                            <li key={item.GroupID}>
                                 <NavLink exact
                                     to={{
-                                        pathname: '/eventinfo/',
-                                        eventData: {
-                                            id: item.EventID,
-                                            name: item.EventName,
-                                            time: item.EventTime,
-                                            desc: item.EventDescription,
+                                        pathname: '/groupinfo/',
+                                        groupData: {
+                                            id: item.GroupID,
+                                            name: item.GroupName,
+                                            desc: item.GroupDescription,
                                             ind: item.IndustryName,
                                             participating: 0,
                                             isorg: 0,
                                             orgemail: item.OrganizerEmail,
-                                            originpath: '/joinevent',
+                                            originpath: '/joingroup',
                                         },
                                     }}
                                 >
-                                    {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
+                                    {item.GroupName}
                                 </NavLink>
                             </li>
                         );
@@ -118,11 +115,11 @@ class JoinGroup extends Component {
         return (
             <div className="new-content">
                 <Error />
-                All events:
+                All groups:
                 <div>
-                    {this.getEventsList()}
+                    {this.getGroupsList()}
                 </div>
-                <Button onClick={() => this.props.history.push('/event')}>Back</Button>
+                <Button onClick={() => this.props.history.push('/group')}>Back</Button>
             </div>
         );
     }
@@ -130,4 +127,4 @@ class JoinGroup extends Component {
 
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(null, { fetchEvents, fetchUserEvents })(JoinGroup));
+export default withRouter(connect(null, { fetchGroups, fetchUserGroups })(JoinGroup));
