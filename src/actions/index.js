@@ -213,3 +213,17 @@ export function createGroup(group, history) {
             });
     };
 }
+
+// Gets list of groups for current user
+export function fetchUserGroups(personId, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/users/getGroups/${personId}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
