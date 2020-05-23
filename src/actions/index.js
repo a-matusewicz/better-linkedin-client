@@ -200,3 +200,16 @@ export function deleteEvent(eventID, history) {
             });
     };
 }
+
+// Post new group then return to groups page
+export function createGroup(group, history) {
+    return (dispatch) => {
+        axios.post(`${ROOT_URL}/groups/createGroup`, group)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/group');
+                return response.data;
+            });
+    };
+}
