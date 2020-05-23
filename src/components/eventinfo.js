@@ -24,8 +24,8 @@ class EventInfo extends Component {
 
     handleButton = () => {
         // If participating, allow for un-RSVP; if organizer, allow for deleting
-        if (this.props.location.eventData.participating === '1') {
-            if (this.props.location.eventData.isorg === '1') {
+        if (this.props.location.eventData.participating === 1) {
+            if (this.props.location.eventData.isorg === 1) {
                 return (<Button onClick={() => this.props.deleteEvent(this.props.location.eventData.id, this.props.history)}>Delete</Button>);
             } else {
                 return (<Button onClick={() => this.props.unRSVP(this.props.user.id, this.props.location.eventData.id, this.props.history)}>un-RSVP</Button>);
