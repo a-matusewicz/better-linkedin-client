@@ -172,3 +172,16 @@ export function RSVP(RSVPRecord, history) {
             });
     };
 }
+
+// Add employment history
+export function addEmployment(personID,companyID,startDate,endDate, history) {
+    return (dispatch) => {
+        axios.post(`${ROOT_URL}/users/employment/add`, personID)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/employment');
+                return response.data;
+            });
+    };
+}

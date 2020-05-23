@@ -13,6 +13,7 @@ import EventList from './eventlist';
 import CreateEvent from './createevent';
 import JoinEvent from './joinevent';
 import EventInfo from './eventinfo';
+import AddEmployment from './addEmployment';
 import { ROOT_URL } from '../actions/index';
 
 const About = (props) => {
@@ -86,6 +87,7 @@ class App extends Component {
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
                         <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
                         <Route path="/joinevent" component={(props) => <JoinEvent user={this.state.user} />} />
+                        <Route path="/addemployment" component={(props) => <AddEmployment user={this.state.user} />} />
                         <Route path="/eventinfo/:id,:name,:time,:desc,:ind,:participating" component={(props) => <EventInfo user={this.state.user} />} />
                         <Route component={FallBack} />
                     </Switch>
