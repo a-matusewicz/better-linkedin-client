@@ -26,8 +26,21 @@ class EventList extends Component {
                 {this.state.eventList.map((item) => {
                     return (
                         <li key={item.EventID}>
-                            {/* eslint-disable-next-line max-len */}
-                            <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${item.IsOrganizer},${item.OrganizerEmail}`} exact>
+                            <NavLink exact
+                                to={{
+                                    pathname: '/eventinfo/',
+                                    eventData: {
+                                        id: item.EventID,
+                                        name: item.EventName,
+                                        time: item.EventTime,
+                                        desc: item.EventDescription,
+                                        ind: item.IndustryName,
+                                        participating: 1,
+                                        isorg: item.IsOrganizer,
+                                        orgemail: item.OrganizerEmail,
+                                    },
+                                }}
+                            >
                                 {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                             </NavLink>
                         </li>
