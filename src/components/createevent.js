@@ -128,6 +128,7 @@ class CreateEvent extends Component {
                         <Button type="submit" variant="success">Submit</Button>
                     </div>
                 </Form>
+                <Button onClick={() => this.props.history.push('/event')}>Back</Button>
             </div>
         );
     }

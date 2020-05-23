@@ -61,6 +61,7 @@ class EventInfo extends Component {
                     {this.props.location.eventData.desc}
                 </div>
                 {this.handleButton()}
+                <Button onClick={() => this.props.history.push(this.props.location.eventData.originpath)}>Back</Button>
             </div>
         );
     }

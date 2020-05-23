@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import { fetchEvents, fetchUserEvents } from '../actions';
 import Error from './error';
 
@@ -52,6 +53,7 @@ class JoinEvent extends Component {
                                                 participating: 1,
                                                 isorg: 1,
                                                 orgemail: item.OrganizerEmail,
+                                                originpath: '/joinevent',
                                             },
                                         }}
                                     >
@@ -74,6 +76,7 @@ class JoinEvent extends Component {
                                                 participating: 1,
                                                 isorg: 0,
                                                 orgemail: item.OrganizerEmail,
+                                                originpath: '/joinevent',
                                             },
                                         }}
                                     >
@@ -97,6 +100,7 @@ class JoinEvent extends Component {
                                             participating: 0,
                                             isorg: 0,
                                             orgemail: item.OrganizerEmail,
+                                            originpath: '/joinevent',
                                         },
                                     }}
                                 >
@@ -118,6 +122,7 @@ class JoinEvent extends Component {
                 <div>
                     {this.getEventsList()}
                 </div>
+                <Button onClick={() => this.props.history.push('/event')}>Back</Button>
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import { fetchUserEvents } from '../actions';
 import Error from './error';
 
@@ -38,6 +39,7 @@ class EventList extends Component {
                                         participating: 1,
                                         isorg: item.IsOrganizer,
                                         orgemail: item.OrganizerEmail,
+                                        originpath: '/eventlist',
                                     },
                                 }}
                             >
@@ -58,6 +60,7 @@ class EventList extends Component {
                 <div>
                     {this.getEventsList()}
                 </div>
+                <Button onClick={() => this.props.history.push('/event')}>Back</Button>
             </div>
         );
     }
