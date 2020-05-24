@@ -36,7 +36,6 @@ class GroupInfo extends Component {
                 PersonID: this.props.user.id,
                 GroupID: this.props.location.groupData.id,
             };
-            // eslint-disable-next-line new-cap
             return (<Button onClick={() => this.props.joinGroup(MemberRecord, this.props.history)}>Join Group</Button>);
         }
     }
