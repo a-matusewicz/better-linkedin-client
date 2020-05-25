@@ -11,12 +11,10 @@ import SignUp from './signup';
 import Event from './event';
 import EventList from './eventlist';
 import CreateEvent from './createevent';
-<<<<<<< HEAD
-import EditU from './editUser';
-=======
 import JoinEvent from './joinevent';
 import EventInfo from './eventinfo';
->>>>>>> 9d63485cd72db4493a72b3ef525e5281df83b5ee
+import UpdateEvent from './updateEvent';
+import updateUser from './updateUser';
 import { ROOT_URL } from '../actions/index';
 
 const About = (props) => {
@@ -85,16 +83,14 @@ class App extends Component {
                         <PrivateRoute exact path="/" user={this.state.user} component={(props) => <Welcome {...props} user={this.state.user} />} />
                         <Route path="/signin" component={(props) => <SignIn user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/signup" component={(props) => <SignUp user={this.state.user} editUser={this.editUser} />} />
+                        <Route path="/user/:id" component={(props) => <updateUser user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/about" component={About} />
                         <Route path="/event" component={(props) => <Event user={this.state.user} />} />
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
                         <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
-<<<<<<< HEAD
-                        <Route path="/update" component={(props) => <EditU user={this.state.user} />} />
-=======
+                        <Route path="/event" component={(props) => <UpdateEvent user={this.state.user} />} />
                         <Route path="/joinevent" component={(props) => <JoinEvent user={this.state.user} />} />
                         <Route path="/eventinfo/:id,:name,:time,:desc,:ind,:participating,:isorg,:orgemail" component={(props) => <EventInfo user={this.state.user} />} />
->>>>>>> 9d63485cd72db4493a72b3ef525e5281df83b5ee
                         <Route component={FallBack} />
                     </Switch>
                 </div>

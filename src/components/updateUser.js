@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { editUser } from '../actions';
+import { updateUser } from '../actions';
 import Error from './error';
 
 // this can be dumb or smart component - connect works with either
-class EditU extends Component {
+class UpdateUser extends Component {
     constructor(props) {
         super(props);
 
@@ -137,4 +137,4 @@ class EditU extends Component {
 
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(null, { editUser })(EditU));
+export default withRouter(connect(null, { updateUser })(UpdateUser));
