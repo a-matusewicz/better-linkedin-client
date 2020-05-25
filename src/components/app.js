@@ -11,7 +11,12 @@ import SignUp from './signup';
 import Event from './event';
 import EventList from './eventlist';
 import CreateEvent from './createevent';
+<<<<<<< HEAD
 import EditU from './editUser';
+=======
+import JoinEvent from './joinevent';
+import EventInfo from './eventinfo';
+>>>>>>> 9d63485cd72db4493a72b3ef525e5281df83b5ee
 import { ROOT_URL } from '../actions/index';
 
 const About = (props) => {
@@ -20,7 +25,7 @@ const About = (props) => {
 const Welcome = (props) => {
     return (
         <div>
-            Welcome, {props.user.username}!
+            Welcome, {props.user.email}!
             <ul>
                 <li><NavLink to="/event" exact>Events</NavLink></li>
             </ul>
@@ -84,7 +89,12 @@ class App extends Component {
                         <Route path="/event" component={(props) => <Event user={this.state.user} />} />
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
                         <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
+<<<<<<< HEAD
                         <Route path="/update" component={(props) => <EditU user={this.state.user} />} />
+=======
+                        <Route path="/joinevent" component={(props) => <JoinEvent user={this.state.user} />} />
+                        <Route path="/eventinfo/:id,:name,:time,:desc,:ind,:participating,:isorg,:orgemail" component={(props) => <EventInfo user={this.state.user} />} />
+>>>>>>> 9d63485cd72db4493a72b3ef525e5281df83b5ee
                         <Route component={FallBack} />
                     </Switch>
                 </div>

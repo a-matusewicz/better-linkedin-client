@@ -19,9 +19,8 @@ class SignUp extends Component {
 
     handleSubmit = (event) => {
         const form = event.currentTarget;
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
         const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
         const firstName = document.getElementById('first_name').value;
         const lastName = document.getElementById('last_name').value;
         this.setState({ validated: false });
@@ -31,9 +30,8 @@ class SignUp extends Component {
             event.stopPropagation();
         } else {
             const user = {
-                username,
-                password,
                 email,
+                password,
                 first_name: firstName,
                 last_name: lastName,
             };
@@ -67,15 +65,15 @@ class SignUp extends Component {
                         onSubmit={(e) => this.handleSubmit(e)}
                     >
                         <Form.Row>
-                            <Form.Group controlId="username">
-                                <Form.Label>Username</Form.Label>
+                            <Form.Group controlId="email">
+                                <Form.Label>Email</Form.Label>
                                 <Form.Control
                                     required
-                                    type="text"
-                                    placeholder="Username"
+                                    type="email"
+                                    placeholder="Email"
                                 />
-                                <Form.Control.Feedback type="invalid" id="username-feedback">
-                                    Please enter a Username.
+                                <Form.Control.Feedback type="invalid" id="email-feedback">
+                                    Please enter an Email.
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
@@ -89,19 +87,6 @@ class SignUp extends Component {
                                 />
                                 <Form.Control.Feedback type="invalid" id="password-feedback">
                                     Please enter a password.
-                                </Form.Control.Feedback>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group controlId="email">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Email"
-                                    required
-                                />
-                                <Form.Control.Feedback type="invalid" id="email-feedback">
-                                    Please enter your email.
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>

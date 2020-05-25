@@ -31,9 +31,9 @@ export function authError(error) {
     };
 }
 
-export function signinUser({ username, password }, history, callback) {
+export function signinUser({ email, password }, history, callback) {
     return (dispatch) => {
-        axios.get(`${ROOT_URL}/users/loginUser`, { params: { username, password } })
+        axios.get(`${ROOT_URL}/users/loginUser`, { params: { email, password } })
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
@@ -43,7 +43,8 @@ export function signinUser({ username, password }, history, callback) {
                     if (callback) {
                         callback({
                             auth: response.data.auth,
-                            username,
+                            email,
+                            id: response.data.id,
                         });
                     }
                     history.push('/');
@@ -64,7 +65,8 @@ export function createUser(user, history, callback) {
                     if (callback) {
                         callback({
                             auth: response.data.auth,
-                            username: user.username,
+                            email: user.email,
+                            id: response.data.id,
                         });
                     }
                     history.push('/');
@@ -96,7 +98,7 @@ export function fetchUser(token, callback) {
                 if (callback) {
                     callback({
                         auth: response.data.auth,
-                        username: response.data.username,
+                        email: response.data.email,
                     });
                 }
             }
@@ -117,6 +119,7 @@ export function createEvent(event, history) {
     };
 }
 
+<<<<<<< HEAD
 // Post new event then return to events page
 export function editUser(user, history, callback) {
     return (dispatch) => {
@@ -135,6 +138,85 @@ export function editUser(user, history, callback) {
                     }
                     history.push('/update');
                 }
+=======
+// Gets list of events for current user
+export function fetchUserEvents(personId, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/users/getEvents/${personId}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Gets list of all events
+export function fetchEvents(callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/events/getEvents`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Un-RSVP user from an event
+export function unRSVP(personID, eventID, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}/events/${personID}/${eventID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/event');
+                return response.data;
+            });
+    };
+}
+
+// Un-RSVP user from an event
+export function RSVP(RSVPRecord, history) {
+    return (dispatch) => {
+        axios.post(`${ROOT_URL}/events/RSVP`, RSVPRecord)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/event');
+                return response.data;
+            });
+    };
+}
+
+// Gets list of all industries
+export function fetchIndustries(callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/industries/getIndustries`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Post new event then return to events page
+export function deleteEvent(eventID, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}/events/${eventID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/event');
+                console.log(response.data);
+>>>>>>> 9d63485cd72db4493a72b3ef525e5281df83b5ee
                 return response.data;
             });
     };

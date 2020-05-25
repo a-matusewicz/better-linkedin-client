@@ -18,7 +18,7 @@ class SignIn extends Component {
 
     handleSubmit = (event) => {
         const form = event.currentTarget;
-        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         this.setState({ validated: false });
         event.preventDefault();
@@ -27,7 +27,7 @@ class SignIn extends Component {
             event.stopPropagation();
         } else {
             const user = {
-                username,
+                email,
                 password,
             };
             this.props.signinUser(user, this.props.history, this.props.editUser);
@@ -60,15 +60,15 @@ class SignIn extends Component {
                         onSubmit={(e) => this.handleSubmit(e)}
                     >
                         <Form.Row>
-                            <Form.Group controlId="username">
-                                <Form.Label>Username</Form.Label>
+                            <Form.Group controlId="email">
+                                <Form.Label>Email</Form.Label>
                                 <Form.Control
                                     required
                                     type="text"
-                                    placeholder="username"
+                                    placeholder="email"
                                 />
-                                <Form.Control.Feedback type="invalid" id="username-feedback">
-                                    Please enter a Username.
+                                <Form.Control.Feedback type="invalid" id="email-feedback">
+                                    Please enter a Email.
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
