@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import { fetchEvents, fetchUserEvents } from '../actions';
 import Error from './error';
 
@@ -40,7 +41,22 @@ class JoinEvent extends Component {
                         if (item.OrganizerID === this.props.user.id) {
                             return (
                                 <li key={item.EventID}>
-                                    <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${1},${item.OrganizerEmail}`} exact>
+                                    <NavLink exact
+                                        to={{
+                                            pathname: '/eventinfo/',
+                                            eventData: {
+                                                id: item.EventID,
+                                                name: item.EventName,
+                                                time: item.EventTime,
+                                                desc: item.EventDescription,
+                                                ind: item.IndustryName,
+                                                participating: 1,
+                                                isorg: 1,
+                                                orgemail: item.OrganizerEmail,
+                                                originpath: '/joinevent',
+                                            },
+                                        }}
+                                    >
                                         {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                     </NavLink>
                                 </li>
@@ -48,7 +64,22 @@ class JoinEvent extends Component {
                         } else {
                             return (
                                 <li key={item.EventID}>
-                                    <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${1},${0},${item.OrganizerEmail}`} exact>
+                                    <NavLink exact
+                                        to={{
+                                            pathname: '/eventinfo/',
+                                            eventData: {
+                                                id: item.EventID,
+                                                name: item.EventName,
+                                                time: item.EventTime,
+                                                desc: item.EventDescription,
+                                                ind: item.IndustryName,
+                                                participating: 1,
+                                                isorg: 0,
+                                                orgemail: item.OrganizerEmail,
+                                                originpath: '/joinevent',
+                                            },
+                                        }}
+                                    >
                                         {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                     </NavLink>
                                 </li>
@@ -57,7 +88,22 @@ class JoinEvent extends Component {
                     } else {
                         return (
                             <li key={item.EventID}>
-                                <NavLink to={`/eventinfo/${item.EventID},${item.EventName},${item.EventTime},${item.EventDescription},${item.IndustryName},${0},${0},${item.OrganizerEmail}`} exact>
+                                <NavLink exact
+                                    to={{
+                                        pathname: '/eventinfo/',
+                                        eventData: {
+                                            id: item.EventID,
+                                            name: item.EventName,
+                                            time: item.EventTime,
+                                            desc: item.EventDescription,
+                                            ind: item.IndustryName,
+                                            participating: 0,
+                                            isorg: 0,
+                                            orgemail: item.OrganizerEmail,
+                                            originpath: '/joinevent',
+                                        },
+                                    }}
+                                >
                                     {item.EventName}, {(new Date(item.EventTime)).toLocaleDateString()}
                                 </NavLink>
                             </li>
@@ -76,6 +122,7 @@ class JoinEvent extends Component {
                 <div>
                     {this.getEventsList()}
                 </div>
+                <Button onClick={() => this.props.history.push('/event')}>Back</Button>
             </div>
         );
     }
