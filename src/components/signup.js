@@ -82,7 +82,7 @@ class SignUp extends Component {
                             <Form.Group controlId="password">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="password"
                                     placeholder="Password"
                                     required
                                     maxLength={255}
