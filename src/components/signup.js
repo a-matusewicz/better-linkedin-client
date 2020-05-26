@@ -71,6 +71,7 @@ class SignUp extends Component {
                                     required
                                     type="email"
                                     placeholder="Email"
+                                    maxLength={255}
                                 />
                                 <Form.Control.Feedback type="invalid" id="email-feedback">
                                     Please enter an Email.
@@ -84,6 +85,7 @@ class SignUp extends Component {
                                     type="text"
                                     placeholder="Password"
                                     required
+                                    maxLength={255}
                                 />
                                 <Form.Control.Feedback type="invalid" id="password-feedback">
                                     Please enter a password.
@@ -97,6 +99,7 @@ class SignUp extends Component {
                                     type="text"
                                     placeholder="First Name"
                                     required
+                                    maxLength={255}
                                 />
                                 <Form.Control.Feedback type="invalid" id="fn-feedback">
                                     Please enter your first name.
@@ -108,6 +111,7 @@ class SignUp extends Component {
                                     type="text"
                                     placeholder="Last Name"
                                     required
+                                    maxLength={255}
                                 />
                                 <Form.Control.Feedback type="invalid" id="ln-feedback">
                                     Please enter your last name.

@@ -66,6 +66,7 @@ class SignIn extends Component {
                                     required
                                     type="text"
                                     placeholder="email"
+                                    maxLength={255}
                                 />
                                 <Form.Control.Feedback type="invalid" id="email-feedback">
                                     Please enter a Email.
@@ -79,6 +80,7 @@ class SignIn extends Component {
                                     type="text"
                                     placeholder="password"
                                     required
+                                    maxLength={255}
                                 />
                                 <Form.Control.Feedback type="invalid" id="password-feedback">
                                     Please enter a password.

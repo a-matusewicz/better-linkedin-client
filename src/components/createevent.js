@@ -83,6 +83,7 @@ class CreateEvent extends Component {
                                 required
                                 type="text"
                                 placeholder="Event Name"
+                                maxLength={255}
                             />
                             <Form.Control.Feedback type="invalid" id="event-name-feedback">
                                 Please enter an event name.
@@ -118,6 +119,7 @@ class CreateEvent extends Component {
                                 type="text"
                                 placeholder="Description"
                                 required
+                                maxLength={255}
                             />
                             <Form.Control.Feedback type="invalid" id="event-desc-feedback">
                                 Please enter a description.
