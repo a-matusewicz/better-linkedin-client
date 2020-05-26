@@ -81,6 +81,7 @@ class CreateGroup extends Component {
                                 required
                                 type="text"
                                 placeholder="Group Name"
+                                maxLength={255}
                             />
                             <Form.Control.Feedback type="invalid" id="group-name-feedback">
                                 Please enter an group name.
@@ -105,6 +106,7 @@ class CreateGroup extends Component {
                                 type="text"
                                 placeholder="Description"
                                 required
+                                maxLength={255}
                             />
                             <Form.Control.Feedback type="invalid" id="group-desc-feedback">
                                 Please enter a description.
