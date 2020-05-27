@@ -53,6 +53,7 @@ export function signinUser({ email, password }, history, callback) {
     };
 }
 
+// Creates new user
 export function createUser(user, history, callback) {
     return (dispatch) => {
         axios.post(`${ROOT_URL}/users/registerUser`, user)
@@ -107,6 +108,7 @@ export function signoutUser(history, callback) {
     };
 }
 
+// Gets information on current user
 export function fetchUser(token, callback) {
     return (dispatch) => {
         axios.get(`${ROOT_URL}/users/findUser`, {
@@ -192,7 +194,7 @@ export function unRSVP(personID, eventID, history) {
     };
 }
 
-// Un-RSVP user from an event
+// RSVP user to an event
 export function RSVP(RSVPRecord, history) {
     return (dispatch) => {
         axios.post(`${ROOT_URL}/events/RSVP`, RSVPRecord)
@@ -219,7 +221,7 @@ export function fetchIndustries(callback) {
     };
 }
 
-// Post new event then return to events page
+// Delete event then return to events page
 export function deleteEvent(eventID, history) {
     return (dispatch) => {
         axios.delete(`${ROOT_URL}/events/${eventID}`)
@@ -233,15 +235,83 @@ export function deleteEvent(eventID, history) {
     };
 }
 
-export function fetchEvent(eventID,callback) {
+// Post new group then return to groups page
+export function createGroup(group, history) {
     return (dispatch) => {
-        axios.get(`${ROOT_URL}/events/${eventID}`)
+        axios.post(`${ROOT_URL}/groups/createGroup`, group)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/group');
+                return response.data;
+            });
+    };
+}
+
+// Gets list of groups for current user
+export function fetchUserGroups(personId, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/users/getGroups/${personId}`)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
                 if (callback && response.data.data) {
                     callback(response.data.data);
                 }
+            });
+    };
+}
+
+// Gets list of all groups
+export function fetchGroups(callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/groups/getGroups`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Leave group for given user and return to groups page
+export function leaveGroup(personID, groupID, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}/groups/${personID}/${groupID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/group');
+                return response.data;
+            });
+    };
+}
+
+// Join group for given user and return to groups page
+export function joinGroup(MemberRecord, history) {
+    return (dispatch) => {
+        axios.post(`${ROOT_URL}/groups/joinGroup`, MemberRecord)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/group');
+                return response.data;
+            });
+    };
+}
+
+// Delete group then return to groups page
+export function deleteGroup(groupID, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}/groups/${groupID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/group');
+                console.log(response.data);
+                return response.data;
             });
     };
 }

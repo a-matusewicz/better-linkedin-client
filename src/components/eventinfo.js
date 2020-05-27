@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import { RSVP, unRSVP, deleteEvent } from '../actions';
+import { RSVP, unRSVP, deleteEvent, updateEvent } from '../actions';
 import Error from './error';
 
 // Displays list of events user is a part of
@@ -15,8 +15,8 @@ class EventInfo extends Component {
 
     // Retrieves events for current person8
     handleIndustry = () => {
-        if (this.props.match.params.ind !== 'null') {
-            return (<div>{this.props.match.params.ind}</div>);
+        if (this.props.location.eventData.ind !== 'null') {
+            return (<div>{this.props.location.eventData.ind}</div>);
         } else {
             return (<div>No assigned industry</div>);
         }
@@ -24,17 +24,22 @@ class EventInfo extends Component {
 
     handleButton = () => {
         // If participating, allow for un-RSVP; if organizer, allow for deleting
-        if (this.props.match.params.participating === '1') {
-            if (this.props.match.params.isorg === '1') {
-                return (<Button onClick={() => this.props.deleteEvent(this.props.match.params.id, this.props.history)}>Delete</Button>);
+        if (this.props.location.eventData.participating === 1) {
+            if (this.props.location.eventData.isorg === 1) {
+                return (
+                <Switch>
+                <Button onClick={() => this.props.deleteEvent(this.props.location.eventData.id, this.props.history)}>Delete</Button>
+                <Button onClick={() => this.props.updateEvent(this.props.location.eventData)}>Edit</Button>
+                </Switch>
+                );
             } else {
-                return (<Button onClick={() => this.props.unRSVP(this.props.user.id, this.props.match.params.id, this.props.history)}>un-RSVP</Button>);
+                return (<Button onClick={() => this.props.unRSVP(this.props.user.id, this.props.location.eventData.id, this.props.history)}>un-RSVP</Button>);
             }
         // Else, allow for RSVP
         } else {
             const RSVPRecord = {
                 PersonID: this.props.user.id,
-                EventID: this.props.match.params.id,
+                EventID: this.props.location.eventData.id,
             };
             // eslint-disable-next-line new-cap
             return (<Button onClick={() => this.props.RSVP(RSVPRecord, this.props.history)}>RSVP</Button>);
@@ -46,21 +51,22 @@ class EventInfo extends Component {
             <div className="new-content">
                 <Error />
                 <div>
-                    {this.props.match.params.name}
+                    {this.props.location.eventData.name}
                 </div>
                 <div>
-                    {(new Date(this.props.match.params.time)).toLocaleDateString()}
+                    {(new Date(this.props.location.eventData.time)).toLocaleDateString()}
                 </div>
                 <div>
                     {this.handleIndustry()}
                 </div>
                 <div>
-                    Organizer email: {this.props.match.params.orgemail}
+                    Organizer email: {this.props.location.eventData.orgemail}
                 </div>
                 <div>
-                    {this.props.match.params.desc}
+                    {this.props.location.eventData.desc}
                 </div>
                 {this.handleButton()}
+                <Button onClick={() => this.props.history.push(this.props.location.eventData.originpath)}>Back</Button>
             </div>
         );
     }

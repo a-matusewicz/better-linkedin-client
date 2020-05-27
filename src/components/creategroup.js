@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { createEvent, fetchIndustries } from '../actions';
+import { createGroup, fetchIndustries } from '../actions';
 import Error from './error';
 
-// Create a new event
-class CreateEvent extends Component {
+// Create a new group
+class CreateGroup extends Component {
     constructor(props) {
         super(props);
 
@@ -24,37 +24,35 @@ class CreateEvent extends Component {
         this.props.fetchIndustries((industryList) => { this.setState({ industryList }); });
     }
 
-    // Submits create for new event
-    handleSubmit = (event) => {
-        const form = event.currentTarget;
-        const eventName = document.getElementById('event_name').value;
-        const eventTime = document.getElementById('event_time').value;
-        const eventDesc = document.getElementById('event_desc').value;
+    // Submits create for new group
+    handleSubmit = (group) => {
+        const form = group.currentTarget;
+        const groupName = document.getElementById('group_name').value;
+        const groupDesc = document.getElementById('group_desc').value;
         this.setState({ validated: false });
-        event.preventDefault();
+        group.preventDefault();
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+            group.preventDefault();
+            group.stopPropagation();
         } else {
-            const newEvent = {
-                eventName,
-                eventTime,
-                eventDesc,
+            const newGroup = {
+                groupName,
+                groupDesc,
                 industryID: this.state.chosenID,
                 userID: this.props.user.id,
             };
-            this.props.createEvent(newEvent, this.props.history);
+            this.props.createGroup(newGroup, this.props.history);
         }
 
         this.setState({ validated: true });
     }
 
     handleChange = () => {
-        const newID = document.getElementById('event_industry').value;
+        const newID = document.getElementById('group_industry').value;
         this.setState({ chosenID: newID });
     }
 
-    // Retrieves events for current person8
+    // Retrieves groups for current person8
     getIndustries = () => {
         return (
             this.state.industryList.map((item) => {
@@ -70,58 +68,47 @@ class CreateEvent extends Component {
         return (
             <div className="new-content">
                 <Error />
-                <div className="title">Create new event:</div>
+                <div className="title">Create new group:</div>
                 <Form
                     noValidate
                     validated={validated}
                     onSubmit={(e) => this.handleSubmit(e)}
                 >
                     <Form.Row>
-                        <Form.Group controlId="event_name">
-                            <Form.Label>Event Name</Form.Label>
+                        <Form.Group controlId="group_name">
+                            <Form.Label>Group Name</Form.Label>
                             <Form.Control
                                 required
                                 type="text"
-                                placeholder="Event Name"
+                                placeholder="Group Name"
                                 maxLength={255}
                             />
-                            <Form.Control.Feedback type="invalid" id="event-name-feedback">
-                                Please enter an event name.
+                            <Form.Control.Feedback type="invalid" id="group-name-feedback">
+                                Please enter an group name.
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="event_time">
-                            <Form.Label>Event Time</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Time"
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid" id="event-time-feedback">
-                                Please enter a time.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} controlId="event_industry">
+                        <Form.Group as={Col} controlId="group_industry">
                             <Form.Label>Industry</Form.Label>
                             <Form.Control as="select" value={this.state.chosenID} onChange={this.handleChange}>
                                 {this.getIndustries()}
                             </Form.Control>
-                            <Form.Control.Feedback type="invalid" id="event-industry-feedback">
+                            <Form.Control.Feedback type="invalid" id="group-industry-feedback">
                                 Please enter an industry.
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group controlId="event_desc">
-                            <Form.Label>Event Description</Form.Label>
+                        <Form.Group controlId="group_desc">
+                            <Form.Label>Group Description</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Description"
                                 required
                                 maxLength={255}
                             />
-                            <Form.Control.Feedback type="invalid" id="event-desc-feedback">
+                            <Form.Control.Feedback type="invalid" id="group-desc-feedback">
                                 Please enter a description.
                             </Form.Control.Feedback>
                         </Form.Group>
@@ -130,7 +117,7 @@ class CreateEvent extends Component {
                         <Button type="submit" variant="success">Submit</Button>
                     </div>
                 </Form>
-                <Button onClick={() => this.props.history.push('/event')}>Back</Button>
+                <Button onClick={() => this.props.history.push('/group')}>Back</Button>
             </div>
         );
     }
@@ -138,4 +125,4 @@ class CreateEvent extends Component {
 
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(null, { createEvent, fetchIndustries })(CreateEvent));
+export default withRouter(connect(null, { createGroup, fetchIndustries })(CreateGroup));
