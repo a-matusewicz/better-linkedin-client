@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import { RSVP, unRSVP, deleteEvent, updateEvent } from '../actions';
+import {
+    RSVP,
+    unRSVP,
+    deleteEvent,
+    updateEvent,
+} from '../actions';
 import Error from './error';
 
 // Displays list of events user is a part of
@@ -27,10 +32,10 @@ class EventInfo extends Component {
         if (this.props.location.eventData.participating === 1) {
             if (this.props.location.eventData.isorg === 1) {
                 return (
-                <Switch>
-                <Button onClick={() => this.props.deleteEvent(this.props.location.eventData.id, this.props.history)}>Delete</Button>
-                <Button onClick={() => this.props.updateEvent(this.props.location.eventData)}>Edit</Button>
-                </Switch>
+                    <div>
+                        <Button onClick={() => this.props.deleteEvent(this.props.location.eventData.id, this.props.history)}>Delete</Button>
+                        <Button onClick={() => this.props.updateEvent(this.props.location.eventData)}>Edit</Button>
+                    </div>
                 );
             } else {
                 return (<Button onClick={() => this.props.unRSVP(this.props.user.id, this.props.location.eventData.id, this.props.history)}>un-RSVP</Button>);
@@ -74,4 +79,9 @@ class EventInfo extends Component {
 
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(null, { RSVP, unRSVP, deleteEvent })(EventInfo));
+export default withRouter(connect(null, {
+    RSVP,
+    unRSVP,
+    deleteEvent,
+    updateEvent,
+})(EventInfo));

@@ -77,7 +77,7 @@ export function createUser(user, history, callback) {
     };
 }
 
-  export function updateUser(user, callback) {
+export function updateUser(user, callback) {
     return (dispatch) => {
         axios.put(`${ROOT_URL}/users/${user.id}`, user)
             .catch((error) => {
@@ -92,8 +92,8 @@ export function createUser(user, history, callback) {
                             id: response.data.id,
                         });
                     }
-                    return response.data;
                 }
+                return response.data;
             });
     };
 }
@@ -144,7 +144,7 @@ export function createEvent(event, history) {
 // update event then return to events page
 export function updateEvent(event) {
     return (dispatch) => {
-        axios.put(`${ROOT_URL}/events/${eventID}`, event)
+        axios.put(`${ROOT_URL}/events/${event.id}`, event)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
@@ -171,6 +171,20 @@ export function fetchUserEvents(personId, callback) {
 export function fetchEvents(callback) {
     return (dispatch) => {
         axios.get(`${ROOT_URL}/events/getEvents`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Get a spcecific event to edit
+export function fetchEvent(eventID, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/events/${eventID}`)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {

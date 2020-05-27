@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { updateEvent, fetchIndustries, fetchEvent} from '../actions';
+import { updateEvent, fetchIndustries, fetchEvent } from '../actions';
 import Error from './error';
 
 // Update an event
@@ -15,36 +15,38 @@ class UpdateEvent extends Component {
         this.state = {
             isEditing: false,
             validated: false,
-            eventID,
         };
     }
 
     // get the eventID to edit
     componentDidMount = () => {
-        this.props.fetchEvent( this.props.match.params.eventID);
+        this.props.fetchEvent(this.props.match.params.eventID);
     }
 
     // Submits an edit for an event
     handleSubmit = (event) => {
         const form = event.currentTarget;
-        if(this.state.isEditing){
+        if (this.state.isEditing) {
             this.props.updateEvent(
                 Object.assign(
-                    this,props.currentEvent,
+                    this.props.currentEvent,
                     {
-                     eventName = document.getElementById('event_name').value,
-                     eventTime = document.getElementById('event_time').value,
-                     eventDesc = document.getElementById('event_desc').value  
-                    }
-                )
-            );   
+                        eventName: document.getElementById('event_name').value,
+                        eventTime: document.getElementById('event_time').value,
+                        eventDesc: document.getElementById('event_desc').value,
+                    },
+                ),
+            );
         }
-        this.setState({ isEditing: !prevState.isEditing });
         event.preventDefault();
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         } else {
+            this.setState((prevState) => ({
+                isEditing: !prevState.isEditing,
+                validated: true,
+            }));
             const updatedEvent = {
                 eventName: this.props.currentEvent.eventName,
                 eventTime: this.props.currentEvent.eventTime,
@@ -54,6 +56,7 @@ class UpdateEvent extends Component {
             };
             this.props.updateEvent(updatedEvent);
         }
+        this.setState({ validated: true });
     }
 
     handleChange = () => {
@@ -71,6 +74,7 @@ class UpdateEvent extends Component {
             })
         );
     }
+
     render() {
         const { validated } = this.state;
         return (
@@ -137,16 +141,12 @@ class UpdateEvent extends Component {
             </div>
         );
     }
-
 }
-
-
-const mapStateToProps = state => (
+const mapStateToProps = (state) => (
     {
-      currentEvent: state.eventlist.current,
- }
+        currentEvent: state.eventlist.current,
+    }
 );
-
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(mapStateToProps, { updateEvent, fetchIndustries, fetchEvent})(UpdateEvent));
+export default withRouter(connect(mapStateToProps, { updateEvent, fetchIndustries, fetchEvent })(UpdateEvent));
