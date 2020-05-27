@@ -14,7 +14,7 @@ import CreateEvent from './createevent';
 import JoinEvent from './joinevent';
 import EventInfo from './eventinfo';
 import UpdateEvent from './updateEvent';
-import updateUser from './updateUser';
+import UpdateUser from './updateUser';
 import { ROOT_URL } from '../actions/index';
 
 const About = (props) => {
@@ -83,7 +83,7 @@ class App extends Component {
                         <PrivateRoute exact path="/" user={this.state.user} component={(props) => <Welcome {...props} user={this.state.user} />} />
                         <Route path="/signin" component={(props) => <SignIn user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/signup" component={(props) => <SignUp user={this.state.user} editUser={this.editUser} />} />
-                        <Route path="/user/:id" component={(props) => <updateUser user={this.state.user} editUser={this.editUser} />} />
+                        <Route path="/user/:id" component={(props) => <UpdateUser user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/about" component={About} />
                         <Route path="/event" component={(props) => <Event user={this.state.user} />} />
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />

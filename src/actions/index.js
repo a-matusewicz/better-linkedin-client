@@ -76,7 +76,6 @@ export function createUser(user, history, callback) {
     };
 }
 
-
   export function updateUser(user, callback) {
     return (dispatch) => {
         axios.put(`${ROOT_URL}/users/${user.id}`, user)
@@ -97,9 +96,6 @@ export function createUser(user, history, callback) {
             });
     };
 }
-
-
-
 
 // deletes token from localstorage
 // and deauths
@@ -155,7 +151,6 @@ export function updateEvent(event) {
     };
 }
 
-
 // Gets list of events for current user
 export function fetchUserEvents(personId, callback) {
     return (dispatch) => {
@@ -183,8 +178,6 @@ export function fetchEvents(callback) {
             });
     };
 }
-
-
 
 // Un-RSVP user from an event
 export function unRSVP(personID, eventID, history) {

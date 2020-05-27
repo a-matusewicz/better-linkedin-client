@@ -37,7 +37,7 @@ class UpdateUser extends Component {
                 education,
                 job,
             };
-            this.props.createUser(user, this.props.history, this.props.editUser);
+            this.props.updateUser(user, this.props.history, this.props.editUser);
         }
 
         this.setState({ validated: true });
