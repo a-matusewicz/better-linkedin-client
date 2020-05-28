@@ -29,10 +29,10 @@ class EmploymentInfo extends Component {
                     {this.props.location.employmentData.CompanyName}
                 </div>
                 <div>
-                    {this.props.location.employmentData.StartDate}
+                    {(new Date(this.props.location.employmentData.StartDate)).toLocaleDateString()}
                 </div>
                 <div>
-                    {this.props.location.employmentData.EndDate}
+                    {(new Date(this.props.location.employmentData.EndDate)).toLocaleDateString()}
                 </div>
                 <div>
                     {this.props.location.employmentData.Desc}

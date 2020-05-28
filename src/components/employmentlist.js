@@ -34,6 +34,7 @@ class EmploymentList extends Component {
                                         StartDate: item.StartDate,
                                         CompanyName: item.CompanyName,
                                         EndDate: item.EndDate,
+                                        Desc: item.EmploymentDescription,
                                         originpath: '/listemployment',
                                     },
                                 }}
