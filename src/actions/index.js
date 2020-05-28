@@ -174,13 +174,41 @@ export function RSVP(RSVPRecord, history) {
 }
 
 // Add employment history
-export function addEmployment(personID,companyID,startDate,endDate, history) {
+export function addEmployment(employment, history) {
     return (dispatch) => {
-        axios.post(`${ROOT_URL}/users/employment/add`, personID)
+        axios.post(`${ROOT_URL}/users/employment/add`, employment)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
                 history.push('/employment');
+                return response.data;
+            });
+    };
+}
+
+// Gets list of all Employment for a person
+export function fetchEmployment(personID, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/api/users/getEmployment/${personID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Post new event then return to events page
+export function deleteEmployment(personID, companyID, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}//deleteEmployment/${personID}/${companyID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/event');
+                console.log(response.data);
                 return response.data;
             });
     };

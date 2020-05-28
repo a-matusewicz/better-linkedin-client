@@ -1,9 +1,9 @@
+/* eslint-disable linebreak-style */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
 import { addEmployment } from '../actions';
 import Error from './error';
 
@@ -29,18 +29,19 @@ class addEmploy extends Component {
             event.preventDefault();
             event.stopPropagation();
         } else {
-            const user = {
-                username,
-                first_name: firstName,
-                last_name: lastName,
-                education,
-                job,
+            const employment = {
+                companyID,
+                position,
+                startDate,
+                endDate,
+                description,
             };
-            this.props.createUser(user, this.props.history, this.props.addEmployment);
+            this.props.addEmployment(employment, this.props.history, this.props.addEmployment);
         }
 
         this.setState({ validated: true });
     }
+
     render() {
         const { validated } = this.state;
         if (this.props.user.auth) {
@@ -70,7 +71,7 @@ class addEmploy extends Component {
                                 />
                                 <Form.Control.Feedback type="invalid" id="username-feedback">
                                     Please enter a Company ID.
-                            </Form.Control.Feedback>
+                                </Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -83,7 +84,7 @@ class addEmploy extends Component {
                                 />
                                 <Form.Control.Feedback type="invalid" id="username-feedback">
                                     Please enter a Company Position.
-                            </Form.Control.Feedback>
+                                </Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -96,7 +97,7 @@ class addEmploy extends Component {
                                 />
                                 <Form.Control.Feedback type="invalid" id="username-feedback">
                                     Please enter a Start Date.
-                            </Form.Control.Feedback>
+                                </Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -108,7 +109,7 @@ class addEmploy extends Component {
                                 />
                                 <Form.Control.Feedback type="invalid" id="username-feedback">
                                     Please enter a End Date.
-                            </Form.Control.Feedback>
+                                </Form.Control.Feedback>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -123,6 +124,5 @@ class addEmploy extends Component {
             );
         }
     }
-
 }
 export default withRouter(connect(null, { addEmployment })(addEmploy));
