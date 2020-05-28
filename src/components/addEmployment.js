@@ -119,7 +119,7 @@ class addEmploy extends Component {
                             </Form.Group>
                         </Form.Row>
                     </Form>
-
+                    <Button onClick={() => this.props.history.push('/event')}>Back</Button>
                 </div>
             );
         }

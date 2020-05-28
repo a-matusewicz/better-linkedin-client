@@ -14,7 +14,8 @@ import CreateEvent from './createevent';
 import JoinEvent from './joinevent';
 import EventInfo from './eventinfo';
 import AddEmployment from './addEmployment';
-import EmploymentList from './employment';
+import EmploymentList from './employmentlist';
+import Employment from './employment';
 import { ROOT_URL } from '../actions/index';
 
 const About = (props) => {
@@ -26,6 +27,7 @@ const Welcome = (props) => {
             Welcome, {props.user.email}!
             <ul>
                 <li><NavLink to="/event" exact>Events</NavLink></li>
+                <li><NavLink to="/employment" exact>Employment</NavLink></li>
             </ul>
         </div>
     );
@@ -89,6 +91,7 @@ class App extends Component {
                         <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
                         <Route path="/joinevent" component={(props) => <JoinEvent user={this.state.user} />} />
                         <Route path="/addemployment" component={(props) => <AddEmployment user={this.state.user} />} />
+                        <Route path="/employment" component={(props) => <Employment user={this.state.user} />} />
                         <Route path="/listemployment" component={(props) => <EmploymentList user={this.state.user} />} />
                         <Route path="/eventinfo/:id,:name,:time,:desc,:ind,:participating" component={(props) => <EventInfo user={this.state.user} />} />
                         <Route component={FallBack} />

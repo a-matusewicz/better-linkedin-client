@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import { fetchEmployment } from '../actions';
 import Error from './error';
+
 
 class EmploymentList extends Component {
     constructor(props) {
@@ -43,6 +45,7 @@ class EmploymentList extends Component {
                 <div>
                     {this.getEmploymentList()}
                 </div>
+                <Button onClick={() => this.props.history.push('/event')}>Back</Button>
             </div>
         );
     }
