@@ -156,7 +156,6 @@ export function deleteCompany(companyID, personID, history) {
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
-                console.log(response);
                 if (response.status === 200) {
                     history.push('/company');
                 }
