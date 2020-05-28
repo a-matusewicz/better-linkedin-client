@@ -23,7 +23,7 @@ class EmploymentList extends Component {
             <ul>
                 {this.state.employmentList.map((item) => {
                     return (
-                        <li key={item.StartDate}>
+                        <li key={item.CompanyID}>
                             {/* eslint-disable-next-line max-len */}
                             <NavLink exact
                                 to={{
@@ -32,6 +32,7 @@ class EmploymentList extends Component {
                                         PersonID: item.PersonID,
                                         CompanyID: item.CompanyID,
                                         StartDate: item.StartDate,
+                                        CompanyName: item.CompanyName,
                                         EndDate: item.EndDate,
                                         originpath: '/listemployment',
                                     },

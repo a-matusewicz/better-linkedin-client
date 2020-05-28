@@ -44,7 +44,7 @@ class addEmploy extends Component {
                 description,
                 personID: this.props.user.id,
             };
-            this.props.addEmployment(employment, this.props.history, this.props.addEmployment);
+            this.props.addEmployment(employment, this.props.history);
         }
 
         this.setState({ validated: true });
