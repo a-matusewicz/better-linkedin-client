@@ -14,10 +14,10 @@ class EmploymentInfo extends Component {
 
     handleButton = () => {
         const delEmployment = {
-            PersonID: this.props.user.PersonID,
+            PersonID: this.props.user.id,
             CompanyID: this.props.location.employmentData.CompanyID,
         };
-            // eslint-disable-next-line new-cap
+
         return (<Button onClick={() => this.props.deleteEmployment(delEmployment, this.props.history)}>Delete</Button>);
     }
 

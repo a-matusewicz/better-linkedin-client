@@ -203,7 +203,7 @@ export function fetchEmployment(personID, callback) {
 // Post new event then return to events page
 export function deleteEmployment(delEmployment, history) {
     return (dispatch) => {
-        axios.delete(`${ROOT_URL}/deleteEmployment`, delEmployment)
+        axios.delete(`${ROOT_URL}/deleteEmployment/${delEmployment.PersonID}/${delEmployment.CompanyID}`)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
