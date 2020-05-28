@@ -19,6 +19,7 @@ import CreateGroup from './creategroup';
 import JoinGroup from './joingroup';
 import GroupInfo from './groupinfo';
 import { ROOT_URL } from '../actions/index';
+import CustomNav from './navbar';
 
 const About = (props) => {
     return <div> All there is to know about me </div>;
@@ -36,19 +37,6 @@ const Welcome = (props) => {
 };
 const FallBack = (props) => {
     return <div>URL Not Found</div>;
-};
-
-const Nav = (props) => {
-    return (
-        <nav>
-            <ul className="nav-bar">
-                <li><NavLink to="/" exact>Home</NavLink></li>
-                <li><NavLink to="/signin">Sign In</NavLink></li>
-                <li><NavLink to="/signup">Sign Up</NavLink></li>
-                <li><NavLink to="/about">About</NavLink></li>
-            </ul>
-        </nav>
-    );
 };
 
 class App extends Component {
@@ -82,7 +70,7 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    <Nav />
+                    <CustomNav user={this.state.user} editUser={this.editUser} />
                     <Switch>
                         <PrivateRoute exact path="/" user={this.state.user} component={(props) => <Welcome {...props} user={this.state.user} />} />
                         <Route path="/signin" component={(props) => <SignIn user={this.state.user} editUser={this.editUser} />} />

@@ -85,12 +85,31 @@ div.new-content {
 
 .nav-bar {
     display: flex;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 1rem;
     background-color: whitesmoke;
+
+    a:hover {
+        color: gray;
+    }
 
     a {
         margin-left: 1rem;
+    }
+
+    .sign-in-up {
+        display: flex;
+    }
+    
+    .sign-out {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .brand {
+        font-size: larger;
+        width: 100%;
     }
 }
 
