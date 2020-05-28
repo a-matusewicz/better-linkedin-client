@@ -14,9 +14,8 @@ class EmploymentInfo extends Component {
 
     handleButton = () => {
         const delEmployment = {
-            PersonID: this.props.user.PersonId,
-            CompanyID: this.props.match.params.CompanyId,
-            Desc: this.props.match.params.Desc,
+            PersonID: this.props.user.PersonID,
+            CompanyID: this.props.location.employmentData.CompanyID,
         };
             // eslint-disable-next-line new-cap
         return (<Button onClick={() => this.props.deleteEmployment(delEmployment, this.props.history)}>Delete</Button>);
@@ -27,16 +26,16 @@ class EmploymentInfo extends Component {
             <div className="new-content">
                 <Error />
                 <div>
-                    {this.props.match.params.CompanyId}
+                    {this.props.location.employmentData.CompanyName}
                 </div>
                 <div>
-                    {this.props.match.params.StartDate}
+                    {this.props.location.employmentData.StartDate}
                 </div>
                 <div>
-                    {this.props.match.params.EndDate}
+                    {this.props.location.employmentData.EndDate}
                 </div>
                 <div>
-                    {this.props.match.params.Desc}
+                    {this.props.location.employmentData.Desc}
                 </div>
                 {this.handleButton()}
             </div>
