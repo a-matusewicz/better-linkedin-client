@@ -68,7 +68,7 @@ class CreateGroup extends Component {
         return (
             <div className="new-content">
                 <Error />
-                <div className="title">Create new group:</div>
+                <div className="title">Create a new group:</div>
                 <Form
                     noValidate
                     validated={validated}
@@ -113,11 +113,11 @@ class CreateGroup extends Component {
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Form.Row>
-                    <div className="buttons">
+                    <div className="buttons two-buttons">
                         <Button type="submit" variant="success">Submit</Button>
+                        <Button onClick={() => this.props.history.push('/group')}>Back</Button>
                     </div>
                 </Form>
-                <Button onClick={() => this.props.history.push('/group')}>Back</Button>
             </div>
         );
     }

@@ -28,12 +28,12 @@ button {
     margin: 0 0 0 1rem;
 }
 
-div.new-content {
+.new-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5vh;
-    height: 6vh;
+    padding: 2rem;
+    padding-top: 1rem;
     color: #17A2B8;
 
     div.title {
@@ -85,12 +85,30 @@ div.new-content {
 
 .nav-bar {
     display: flex;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 1rem;
     background-color: whitesmoke;
+
+    a:hover {
+        color: gray;
+    }
 
     a {
         margin-left: 1rem;
+    }
+
+    .two-buttons {
+        display: flex;
+    }
+    
+    .sign-out {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .brand {
+        font-size: larger;
     }
 }
 
@@ -101,4 +119,30 @@ div.main {
     margin-top: 1rem;
     margin-left: 3rem;
     margin-right: 3rem;
+}
+
+.company-name {
+    font-size: larger;
+}
+
+.company-industry {
+    font-size: large;
+}
+
+.header {
+    font-size: large;
+    padding-top: 1rem;
+}
+
+.company-name-list {
+    font-size: large;
+}
+
+.company-name-list:hover {
+    color: gray;
+}
+
+.add {
+    margin-bottom: 1rem;
+    align-self: flex-end;
 }

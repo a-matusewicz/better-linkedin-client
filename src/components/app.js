@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import '../style.scss';
 import axios from 'axios';
 import {
-    BrowserRouter as Router, Route, NavLink, Switch,
+    BrowserRouter as Router, Route, Switch,
 } from 'react-router-dom';
 import PrivateRoute from '../containers/requireAuth';
 import SignIn from './signin';
@@ -19,6 +19,10 @@ import CreateGroup from './creategroup';
 import JoinGroup from './joingroup';
 import GroupInfo from './groupinfo';
 import { ROOT_URL } from '../actions/index';
+import Nav from './navbar';
+import CompanyList from './companylist';
+import Company from './company';
+import CreateCompany from './createcompany';
 
 const About = (props) => {
     return <div> All there is to know about me </div>;
@@ -27,28 +31,11 @@ const Welcome = (props) => {
     return (
         <div>
             Welcome, {props.user.email}!
-            <ul>
-                <li><NavLink to="/event" exact>Events</NavLink></li>
-                <li><NavLink to="/group" exact>Groups</NavLink></li>
-            </ul>
         </div>
     );
 };
 const FallBack = (props) => {
     return <div>URL Not Found</div>;
-};
-
-const Nav = (props) => {
-    return (
-        <nav>
-            <ul className="nav-bar">
-                <li><NavLink to="/" exact>Home</NavLink></li>
-                <li><NavLink to="/signin">Sign In</NavLink></li>
-                <li><NavLink to="/signup">Sign Up</NavLink></li>
-                <li><NavLink to="/about">About</NavLink></li>
-            </ul>
-        </nav>
-    );
 };
 
 class App extends Component {
@@ -82,22 +69,32 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    <Nav />
+                    <Nav user={this.state.user} editUser={this.editUser} />
                     <Switch>
-                        <PrivateRoute exact path="/" user={this.state.user} component={(props) => <Welcome {...props} user={this.state.user} />} />
+                        <Route exact path="/" component={(props) => <Welcome {...props} user={this.state.user} />} />
                         <Route path="/signin" component={(props) => <SignIn user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/signup" component={(props) => <SignUp user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/about" component={About} />
+
+                        {/* Company Routes */}
+                        <PrivateRoute path="/company/new" user={this.state.user} component={(props) => <CreateCompany user={this.state.user} companyID={props.match.params.companyID} />} />
+                        <Route path="/company/:companyID" component={(props) => <Company user={this.state.user} companyID={props.match.params.companyID} />} />
+                        <Route path="/company" component={(props) => <CompanyList user={this.state.user} />} />
+
+                        {/* Event Routes */}
                         <Route path="/event" component={(props) => <Event user={this.state.user} />} />
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
-                        <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
-                        <Route path="/joinevent" component={(props) => <JoinEvent user={this.state.user} />} />
+                        <PrivateRoute path="/createevent" user={this.state.user} component={(props) => <CreateEvent user={this.state.user} />} />
+                        <PrivateRoute path="/joinevent" user={this.state.user} component={(props) => <JoinEvent user={this.state.user} />} />
                         <Route path="/eventinfo" component={(props) => <EventInfo user={this.state.user} />} />
+
+                        {/* Group Routes */}
                         <Route path="/group" component={(props) => <Group user={this.state.user} />} />
                         <Route path="/grouplist" component={(props) => <GroupList user={this.state.user} />} />
-                        <Route path="/creategroup" component={(props) => <CreateGroup user={this.state.user} />} />
-                        <Route path="/joingroup" component={(props) => <JoinGroup user={this.state.user} />} />
+                        <PrivateRoute path="/creategroup" user={this.state.user} component={(props) => <CreateGroup user={this.state.user} />} />
+                        <PrivateRoute path="/joingroup" user={this.state.user} component={(props) => <JoinGroup user={this.state.user} />} />
                         <Route path="/groupinfo" component={(props) => <GroupInfo user={this.state.user} />} />
+
                         <Route component={FallBack} />
                     </Switch>
                 </div>

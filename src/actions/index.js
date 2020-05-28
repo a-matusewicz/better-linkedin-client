@@ -108,6 +108,77 @@ export function fetchUser(token, callback) {
     };
 }
 
+// Gets list of companies
+export function fetchCompanies(callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/companies/getCompanies`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Gets company by ID
+export function fetchCompany(companyID, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/companies/${companyID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data[0]);
+                }
+            });
+    };
+}
+
+// Post new company then return to companies page
+export function createCompany(company, history) {
+    return (dispatch) => {
+        axios.post(`${ROOT_URL}/companies/addCompany`, company)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/company');
+                return response.data;
+            });
+    };
+}
+
+// Deletes company
+export function deleteCompany(companyID, personID, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}/companies/${companyID}/${personID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                console.log(response);
+                if (response.status === 200) {
+                    history.push('/company');
+                }
+                return response.data;
+            });
+    };
+}
+
+// Gets company by ID
+export function fetchEmployees(companyID, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/employment/${companyID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
 // Post new event then return to events page
 export function createEvent(event, history) {
     return (dispatch) => {
@@ -197,7 +268,6 @@ export function deleteEvent(eventID, history) {
                 return dispatch(authError(error.response));
             }).then((response) => {
                 history.push('/event');
-                console.log(response.data);
                 return response.data;
             });
     };
@@ -278,7 +348,6 @@ export function deleteGroup(groupID, history) {
                 return dispatch(authError(error.response));
             }).then((response) => {
                 history.push('/group');
-                console.log(response.data);
                 return response.data;
             });
     };
