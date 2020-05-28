@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import Error from './error';
 
 // Menu page for user to choose between viewing list of their events or creating new event
@@ -19,7 +18,6 @@ class Event extends Component {
                 <NavLink to="/eventlist" exact>My Events</NavLink>
                 <NavLink to="/createevent" exact>Create an Event</NavLink>
                 <NavLink to="/joinevent" exact>All Events</NavLink>
-                <Button onClick={() => this.props.history.push('/')}>Back</Button>
             </div>
         );
     }

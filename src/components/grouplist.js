@@ -17,7 +17,7 @@ class GroupList extends Component {
 
     componentDidMount() {
         // Get list of groups for current user
-        this.props.fetchUserGroups(this.props.user.id, (groupList) => { this.setState({ groupList }); });
+        this.props.fetchUserGroups(this.props.user.id, (groupList) => this.setState({ groupList }));
     }
 
     // Retrieves groups for current person8

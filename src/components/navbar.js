@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import { signoutUser } from '../actions';
 
-class CustomNav extends Component {
+class Nav extends Component {
     handleSignOut = () => {
         this.props.signoutUser(this.props.history, this.props.editUser);
     }
@@ -17,7 +17,7 @@ class CustomNav extends Component {
             );
         } else {
             return (
-                <div className="sign-in-up">
+                <div className="two-buttons">
                     <NavLink to="/signin">Sign In</NavLink>
                     <NavLink to="/signup">Sign Up</NavLink>
                 </div>
@@ -32,6 +32,9 @@ class CustomNav extends Component {
                     <div>
                         <NavLink className="brand" to="/">Better-LinkedIn</NavLink>
                         <NavLink to="/about">About</NavLink>
+                        <NavLink to="/company">Companies</NavLink>
+                        <NavLink to="/event">Events</NavLink>
+                        <NavLink to="/group">Groups</NavLink>
                     </div>
                     {this.authRender()}
                 </div>
@@ -40,4 +43,4 @@ class CustomNav extends Component {
     }
 }
 
-export default withRouter(connect(null, { signoutUser })(CustomNav));
+export default withRouter(connect(null, { signoutUser })(Nav));

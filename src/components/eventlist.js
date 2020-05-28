@@ -17,7 +17,7 @@ class EventList extends Component {
 
     componentDidMount() {
         // Get list of events for current user
-        this.props.fetchUserEvents(this.props.user.id, (eventList) => { this.setState({ eventList }); });
+        this.props.fetchUserEvents(this.props.user.id, (eventList) => this.setState({ eventList }));
     }
 
     // Retrieves events for current person8
