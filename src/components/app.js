@@ -13,6 +13,7 @@ import EventList from './eventlist';
 import CreateEvent from './createevent';
 import JoinEvent from './joinevent';
 import EventInfo from './eventinfo';
+import EmploymentInfo from './employmentinfo';
 import AddEmployment from './addEmployment';
 import EmploymentList from './employmentlist';
 import Employment from './employment';
@@ -93,6 +94,7 @@ class App extends Component {
                         <Route path="/addemployment" component={(props) => <AddEmployment user={this.state.user} />} />
                         <Route path="/employment" component={(props) => <Employment user={this.state.user} />} />
                         <Route path="/listemployment" component={(props) => <EmploymentList user={this.state.user} />} />
+                        <Route path="/employmentinfo" component={(props) => <EmploymentInfo user={this.state.user} />} />
                         <Route path="/eventinfo/:id,:name,:time,:desc,:ind,:participating" component={(props) => <EventInfo user={this.state.user} />} />
                         <Route component={FallBack} />
                     </Switch>

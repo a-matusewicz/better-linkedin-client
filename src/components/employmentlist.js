@@ -15,20 +15,30 @@ class EmploymentList extends Component {
     }
 
     componentDidMount() {
-        // Get list of events for current user
         this.props.fetchEmployment(this.props.user.id, (employmentList) => { this.setState({ employmentList }); });
     }
 
-    // Retrieves events for current person8
     getEmploymentList = () => {
         return (
             <ul>
                 {this.state.employmentList.map((item) => {
                     return (
-                        <li key={item.PersonID}>
+                        <li key={item.StartDate}>
                             {/* eslint-disable-next-line max-len */}
-                            <NavLink to={`/employment/${item.PersonID},${item.CompanyID},${item.StartDate},${item.EndDate},${item.EmploymentDescription}`} exact>
-                                {item.CompanyID}, {(new Date(item.StartDate)).toLocaleDateString()}, {(new Date(item.EndDate)).toLocaleDateString()}, {item.EmploymentDescription}
+                            <NavLink exact
+                                to={{
+                                    pathname: '/employmentinfo/',
+                                    employmentData: {
+                                        PersonID: item.PersonID,
+                                        CompanyID: item.CompanyID,
+                                        StartDate: item.StartDate,
+                                        EndDate: item.EndDate,
+                                        originpath: '/listemployment',
+                                    },
+                                }}
+                            >
+                                {/* eslint-disable-next-line max-len */}
+                                {item.CompanyName}, {(new Date(item.StartDate)).toLocaleDateString()}, {(new Date(item.EndDate)).toLocaleDateString()}, {item.EmploymentDescription}
                             </NavLink>
                         </li>
                     );
@@ -45,8 +55,9 @@ class EmploymentList extends Component {
                 <div>
                     {this.getEmploymentList()}
                 </div>
-                <Button onClick={() => this.props.history.push('/event')}>Back</Button>
+                <Button onClick={() => this.props.history.push('/employment')}>Back</Button>
             </div>
         );
     }
 }
+export default withRouter(connect(null, { fetchEmployment })(EmploymentList));

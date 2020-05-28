@@ -176,7 +176,7 @@ export function RSVP(RSVPRecord, history) {
 // Add employment history
 export function addEmployment(employment, history) {
     return (dispatch) => {
-        axios.post(`${ROOT_URL}/users/employment/add`, employment)
+        axios.post(`${ROOT_URL}/employment/add`, employment)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
@@ -189,7 +189,7 @@ export function addEmployment(employment, history) {
 // Gets list of all Employment for a person
 export function fetchEmployment(personID, callback) {
     return (dispatch) => {
-        axios.get(`${ROOT_URL}/api/users/getEmployment/${personID}`)
+        axios.get(`${ROOT_URL}/users/getEmployment/${personID}`)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
@@ -201,15 +201,29 @@ export function fetchEmployment(personID, callback) {
 }
 
 // Post new event then return to events page
-export function deleteEmployment(personID, companyID, history) {
+export function deleteEmployment(delEmployment, history) {
     return (dispatch) => {
-        axios.delete(`${ROOT_URL}//deleteEmployment/${personID}/${companyID}`)
+        axios.delete(`${ROOT_URL}/deleteEmployment`, delEmployment)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
                 history.push('/event');
                 console.log(response.data);
                 return response.data;
+            });
+    };
+}
+
+// Gets list of all industries
+export function fetchCompanies(callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/companies/getCompanies`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
             });
     };
 }
