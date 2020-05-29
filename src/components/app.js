@@ -86,7 +86,7 @@ class App extends Component {
                         <Route path="/company" component={(props) => <CompanyList user={this.state.user} />} />
 
                         {/* Employment Routes */}
-                        <PrivateRoute path="/addemployment" component={(props) => <AddEmployment user={this.state.user} />} />
+                        <PrivateRoute path="/addemployment" user={this.state.user} component={(props) => <AddEmployment user={this.state.user} />} />
                         <Route path="/employment" component={(props) => <Employment user={this.state.user} />} />
                         <Route path="/listemployment" component={(props) => <EmploymentList user={this.state.user} />} />
                         <Route path="/employmentinfo" component={(props) => <EmploymentInfo user={this.state.user} />} />
