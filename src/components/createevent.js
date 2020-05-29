@@ -92,14 +92,14 @@ class CreateEvent extends Component {
                     </Form.Row>
                     <Form.Row>
                         <Form.Group as={Col} controlId="event_time">
-                            <Form.Label>Event Time</Form.Label>
+                            <Form.Label>Event Date</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Time"
+                                placeholder="MM-DD-YYYY"
                                 required
                             />
                             <Form.Control.Feedback type="invalid" id="event-time-feedback">
-                                Please enter a time.
+                                Please enter a date.
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group as={Col} controlId="event_industry">
