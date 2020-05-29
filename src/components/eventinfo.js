@@ -10,6 +10,7 @@ import {
     unRSVP,
     deleteEvent,
     updateEvent,
+    fetchIndustries,
 } from '../actions';
 import Error from './error';
 
@@ -20,17 +21,19 @@ class EventInfo extends Component {
 
         this.state = {
             isEditing: false,
-            name: this.props.currentEvent.name,
-            time: this.props.currentEvent.time,
-            desc: this.props.currentEvent.desc,
-            ind: this.props.currentEvent.ind,
+            name: this.props.location.eventData.name,
+            time: this.props.location.eventData.time,
+            desc: this.props.location.eventData.desc,
+            ind: this.props.location.eventData.ind,
+            industryList: [],
         };
     }
 
-    componentDidMount = () => {
-        this.props.fetchEvent(this.props.location.eventData.id);
-    }
 
+    componentDidMount() {
+        // Get list of industries
+        this.props.fetchIndustries((industryList) => { this.setState({ industryList }); });
+    }
 
     // Retrieves events for current person8
     handleIndustry = () => {
@@ -71,18 +74,30 @@ class EventInfo extends Component {
         }
     }
 
-    updateEvent = (id) => {
+    updateEvent = () => {
         const event = {
             name: this.state.name,
             time: this.state.time,
             desc: this.state.desc,
             ind: this.state.ind,
+            user: this.props.user.id,
         };
 
-        this.props.updateEvent(event);
+        this.props.updateEvent(this.props.location.eventData.id, event);
         this.setState({
             isEditing: false,
         });
+    }
+
+    // Retrieves events for current person8
+    getIndustries = () => {
+        return (
+            this.state.industryList.map((item) => {
+                return (
+                    <option selected={item.IndustryID === this.state.ind} key={item.IndustryID} value={this.state.ind}>{item.IndustryName}</option>
+                );
+            })
+        );
     }
 
       renderEvent = () => {
@@ -97,13 +112,8 @@ class EventInfo extends Component {
                                   <Form.Control
                                       required
                                       type="text"
-                                      placeholder="Event Name"
-                                      maxLength={255}
-                                  />
-                                  <Form.Control.Feedback
-                                      type="invalid"
-                                      id="event-name-feedback"
                                       value={this.state.name}
+                                      maxLength={255}
                                       onChange={this.handleChange('name')}
                                   />
                               </Form.Group>
@@ -113,27 +123,16 @@ class EventInfo extends Component {
                                   <Form.Label>Event Time</Form.Label>
                                   <Form.Control
                                       type="text"
-                                      placeholder="Time"
                                       required
-                                  />
-                                  <Form.Control.Feedback
-                                      type="invalid"
-                                      id="event-time-feedback"
                                       value={this.state.time}
                                       onChange={this.handleChange('time')}
                                   />
                               </Form.Group>
                               <Form.Group as={Col} controlId="event_industry">
                                   <Form.Label>Industry</Form.Label>
-                                  <Form.Control as="select" value={this.state.chosenID} onChange={this.handleChange}>
+                                  <Form.Control as="select" value={this.state.ind} onChange={this.handleChange('ind')}>
                                       {this.getIndustries()}
                                   </Form.Control>
-                                  <Form.Control.Feedback
-                                      type="invalid"
-                                      id="event-industry-feedback"
-                                      value={this.state.ind}
-                                      onChange={this.handleChange('ind')}
-                                  />
                               </Form.Group>
                           </Form.Row>
                           <Form.Row>
@@ -141,21 +140,22 @@ class EventInfo extends Component {
                                   <Form.Label>Event Description</Form.Label>
                                   <Form.Control
                                       type="text"
-                                      placeholder="Description"
                                       required
                                       maxLength={255}
-                                  />
-                                  <Form.Control.Feedback
-                                      type="invalid"
-                                      id="event-desc-feedback"
                                       value={this.state.desc}
                                       onChange={this.handleChange('desc')}
                                   />
+
                               </Form.Group>
                           </Form.Row>
                           <div className="buttons">
-                              <Button type="submit" variant="success">Update</Button>
-                              <Button onClick={() => { this.updateEvent(this.props.location.eventData.id); }}>Update</Button>
+                              <Button onClick={() => {
+                                  this.updateEvent(
+                                  );
+                                  this.setState({ isEditing: false });
+                              }}
+                              >Update
+                              </Button>
                               <Button onClick={() => { this.setState({ isEditing: false }); }}>Cancel</Button>
                           </div>
                       </Form>
@@ -163,16 +163,14 @@ class EventInfo extends Component {
 
               );
           } else {
-              const { currentEvent } = this.props;
-
               return (
                   <div className="new-content">
                       <Error />
                       <div>
-                          {this.props.location.eventData.name}
+                          {this.state.name}
                       </div>
                       <div>
-                          {(new Date(this.props.location.eventData.time)).toLocaleDateString()}
+                          {(new Date(this.state.time)).toLocaleDateString()}
                       </div>
                       <div>
                           {this.handleIndustry()}
@@ -181,16 +179,12 @@ class EventInfo extends Component {
                           Organizer email: {this.props.location.eventData.orgemail}
                       </div>
                       <div>
-                          {this.props.location.eventData.desc}
+                          {this.state.desc}
                       </div>
                       {this.handleButton()}
                       <Button onClick={() => {
                           this.setState({
                               isEditing: true,
-                              name: currentEvent.name,
-                              time: currentEvent.time,
-                              desc: currentEvent.desc,
-                              ind: currentEvent.ind,
                           });
                       }}
                       >Edit
@@ -210,17 +204,12 @@ class EventInfo extends Component {
       }
 }
 
-const mapStateToProps = (state) => (
-    {
-        currentEvent: state.eventlist.current,
-    }
-);
-
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(mapStateToProps, {
+export default withRouter(connect(null, {
     RSVP,
     unRSVP,
     deleteEvent,
     updateEvent,
+    fetchIndustries,
 })(EventInfo));

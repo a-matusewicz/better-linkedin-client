@@ -18,9 +18,10 @@ import GroupList from './grouplist';
 import CreateGroup from './creategroup';
 import JoinGroup from './joingroup';
 import GroupInfo from './groupinfo';
-import UpdateEvent from './updateEvent';
 import UpdateUser from './updateUser';
 import { ROOT_URL } from '../actions/index';
+// import UpdateEvent from './updateEvent';
+
 
 const About = (props) => {
     return <div> All there is to know about me </div>;
@@ -94,7 +95,6 @@ class App extends Component {
                         <Route path="/event" component={(props) => <Event user={this.state.user} />} />
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
                         <Route path="/createevent" component={(props) => <CreateEvent user={this.state.user} />} />
-                        <Route path="/joinevent/:eventID" component={(props) => <UpdateEvent user={this.state.user} />} />
                         <Route path="/joinevent" component={(props) => <JoinEvent user={this.state.user} />} />
                         <Route path="/eventinfo" component={(props) => <EventInfo user={this.state.user} />} />
                         <Route path="/group" component={(props) => <Group user={this.state.user} />} />

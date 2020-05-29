@@ -142,9 +142,9 @@ export function createEvent(event, history) {
 }
 
 // update event then return to events page
-export function updateEvent(event) {
+export function updateEvent(id, event) {
     return (dispatch) => {
-        axios.put(`${ROOT_URL}/events/${event.id}`, event)
+        axios.put(`${ROOT_URL}/events/updateEvent/${id}`, event)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
