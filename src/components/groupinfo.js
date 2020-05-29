@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import { joinGroup, leaveGroup, deleteGroup } from '../actions';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import {
+    joinGroup,
+    leaveGroup,
+    deleteGroup,
+    updateGroup,
+    fetchIndustries,
+} from '../actions';
 import Error from './error';
 
 // Displays list of groups user is a part of
@@ -10,7 +18,18 @@ class GroupInfo extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            isEditing: false,
+            name: this.props.location.groupData.name,
+            desc: this.props.location.groupData.desc,
+            ind: 1,
+            industryList: [],
+        };
+    }
+
+    componentDidMount() {
+        // Get list of industries
+        this.props.fetchIndustries((industryList) => { this.setState({ industryList }); });
     }
 
     // Retrieves groups for current person
@@ -40,25 +59,132 @@ class GroupInfo extends Component {
         }
     }
 
-    render() {
-        console.log(this.props.location);
+    handleChange = (name) => (event) => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    handleChangeTwo = () => {
+        const newID = document.getElementById('group_industry').value;
+        this.setState({ ind: newID });
+    };
+
+
+    updateGroup = () => {
+        const group = {
+            name: this.state.name,
+            desc: this.state.desc,
+            ind: this.state.ind,
+            user: this.props.user.id,
+        };
+
+        this.props.updateGroup(this.props.location.groupData.id, group, this.props.history);
+        this.setState({
+            isEditing: false,
+        });
+    }
+
+    // Retrieves events for current person
+    getIndustries = () => {
         return (
-            <div className="new-content">
-                <Error />
-                <div>
-                    {this.props.location.groupData.name}
+            this.state.industryList.map((item) => {
+                return (
+                    <option key={item.IndustryID} value={item.IndustryID}>{item.IndustryName}</option>
+                );
+            })
+        );
+    }
+
+    renderGroup = () => {
+        if (this.state.isEditing) {
+            return (
+                <div className="new-content">
+                    <div className="title">Edit group</div>
+                    <Form noValidate>
+                        <Form.Row>
+                            <Form.Group controlId="group_name">
+                                <Form.Label>Group Name</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="text"
+                                    value={this.state.name}
+                                    maxLength={255}
+                                    onChange={this.handleChange('name')}
+                                />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="group_industry">
+                                <Form.Label>Industry</Form.Label>
+                                <Form.Control as="select" value={this.state.ind} onChange={this.handleChangeTwo}>
+                                    {this.getIndustries()}
+                                </Form.Control>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group controlId="group_desc">
+                                <Form.Label>Group Description</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    required
+                                    maxLength={255}
+                                    value={this.state.desc}
+                                    onChange={this.handleChange('desc')}
+                                />
+
+                            </Form.Group>
+                        </Form.Row>
+                        <div className="buttons">
+                            <Button onClick={() => {
+                                this.updateGroup(
+                                );
+                                this.setState({ isEditing: false });
+                                this.props.history.push('/grouplist');
+                            }}
+                            >Update
+                            </Button>
+                            <Button onClick={() => { this.setState({ isEditing: false }); }}>Cancel</Button>
+                        </div>
+                    </Form>
                 </div>
-                <div>
-                    {this.handleIndustry()}
+
+            );
+        } else {
+            console.log(this.props.location);
+            return (
+                <div className="new-content">
+                    <Error />
+                    <div>
+                        {this.state.name}
+                    </div>
+                    <div>
+                        {this.handleIndustry()}
+                    </div>
+                    <div>
+                        Organizer email: {this.props.location.groupData.orgemail}
+                    </div>
+                    <div>
+                        {this.state.desc}
+                    </div>
+                    {this.handleButton()}
+                    <Button onClick={() => {
+                        this.setState({
+                            isEditing: true,
+                        });
+                    }}
+                    >Edit
+                    </Button>
+                    <Button onClick={() => this.props.history.push(this.props.location.groupData.originpath)}>Back</Button>
                 </div>
-                <div>
-                    Organizer email: {this.props.location.groupData.orgemail}
-                </div>
-                <div>
-                    {this.props.location.groupData.desc}
-                </div>
-                {this.handleButton()}
-                <Button onClick={() => this.props.history.push(this.props.location.groupData.originpath)}>Back</Button>
+            );
+        }
+    }
+
+    render() {
+        return (
+            <div className="group">
+                {this.renderGroup()}
             </div>
         );
     }
@@ -66,4 +192,6 @@ class GroupInfo extends Component {
 
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(null, { joinGroup, leaveGroup, deleteGroup })(GroupInfo));
+export default withRouter(connect(null, {
+    joinGroup, leaveGroup, deleteGroup, updateGroup, fetchIndustries,
+})(GroupInfo));
