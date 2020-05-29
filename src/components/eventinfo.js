@@ -24,7 +24,7 @@ class EventInfo extends Component {
             name: this.props.location.eventData.name,
             time: this.props.location.eventData.time,
             desc: this.props.location.eventData.desc,
-            ind: this.props.location.eventData.ind,
+            ind: 1,
             industryList: [],
         };
     }

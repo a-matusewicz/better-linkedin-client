@@ -22,7 +22,7 @@ class GroupInfo extends Component {
             isEditing: false,
             name: this.props.location.groupData.name,
             desc: this.props.location.groupData.desc,
-            ind: this.props.location.groupData.ind,
+            ind: 1,
             industryList: [],
         };
     }
