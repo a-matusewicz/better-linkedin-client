@@ -204,6 +204,19 @@ export function updateEvent(id, event) {
     };
 }
 
+
+// update employement
+export function updateEmp(id, emp) {
+    return (dispatch) => {
+        axios.put(`${ROOT_URL}/employments/updateEmp/${id}`, emp)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                return response.data;
+            });
+    };
+}
+
 // Gets list of events for current user
 export function fetchUserEvents(personId, callback) {
     return (dispatch) => {
