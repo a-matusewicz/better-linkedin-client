@@ -204,6 +204,18 @@ export function updateEvent(id, event) {
     };
 }
 
+// update group then return to group page
+export function updateGroup(id, group) {
+    return (dispatch) => {
+        axios.put(`${ROOT_URL}/groups/updateGroup/${id}`, group)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                return response.data;
+            });
+    };
+}
+
 // Gets list of events for current user
 export function fetchUserEvents(personId, callback) {
     return (dispatch) => {
