@@ -373,8 +373,9 @@ export function deleteEmployment(delEmployment, history) {
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
-                history.push('/employment');
-                console.log(response.data);
+                if (history) {
+                    history.push('/employment');
+                }
                 return response.data;
             });
     };
