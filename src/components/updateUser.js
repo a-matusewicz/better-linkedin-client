@@ -138,3 +138,28 @@ class UpdateUser extends Component {
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
 export default withRouter(connect(null, { updateUser })(UpdateUser));
+
+
+
+// does in index
+
+export function updateUser(user, callback) {
+    return (dispatch) => {
+        axios.put(`${ROOT_URL}/users/${user.id}`, user)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (response.data && response.data.auth) {
+                    localStorage.setItem('JWT', response.data.token);
+
+                    if (callback) {
+                        callback({
+                            auth: response.data.auth,
+                            id: response.data.id,
+                        });
+                    }
+                }
+                return response.data;
+            });
+    };
+}
