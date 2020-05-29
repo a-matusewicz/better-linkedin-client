@@ -27,11 +27,9 @@ import Nav from './navbar';
 import CompanyList from './companylist';
 import Company from './company';
 import CreateCompany from './createcompany';
+import Person from './person';
 
 
-const About = (props) => {
-    return <div> All there is to know about me </div>;
-};
 const Welcome = (props) => {
     return (
         <div>
@@ -79,7 +77,7 @@ class App extends Component {
                         <Route exact path="/" component={(props) => <Welcome {...props} user={this.state.user} />} />
                         <Route path="/signin" component={(props) => <SignIn user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/signup" component={(props) => <SignUp user={this.state.user} editUser={this.editUser} />} />
-                        <Route path="/about" component={About} />
+                        <PrivateRoute path="/profile" user={this.state.user} component={(props) => <Person user={this.state.user} editUser={this.editUser} />} />
 
                         {/* Company Routes */}
                         <PrivateRoute path="/company/new" user={this.state.user} component={(props) => <CreateCompany user={this.state.user} companyID={props.match.params.companyID} />} />
