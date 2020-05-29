@@ -5,7 +5,9 @@ import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Error from './error';
-import { fetchCompany, deleteCompany, fetchEmployees } from '../actions';
+import {
+    fetchCompany, deleteCompany, fetchEmployees, deleteEmployment,
+} from '../actions';
 
 class Company extends Component {
     constructor(props) {
@@ -31,7 +33,19 @@ class Company extends Component {
         if (this.state.isAdmin) {
             return (
                 <td>
-                    <Button disabled={employee.PersonID === this.props.user.id} variant="secondary" onClick={() => {}}>
+                    <Button
+                        disabled={employee.PersonID === this.props.user.id}
+                        variant="secondary"
+                        onClick={() => {
+                            this.props.deleteEmployment({
+                                PersonID: employee.PersonID,
+                                CompanyID: this.props.companyID,
+                            });
+                            this.setState((prevState) => {
+                                return { employees: (prevState.employees.filter((e) => e.PersonID !== employee.PersonID)) };
+                            });
+                        }}
+                    >
                         <i className="fa fa-trash" />
                     </Button>
                 </td>
@@ -115,4 +129,6 @@ class Company extends Component {
 
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(null, { fetchCompany, deleteCompany, fetchEmployees })(Company));
+export default withRouter(connect(null, {
+    fetchCompany, deleteCompany, fetchEmployees, deleteEmployment,
+})(Company));
