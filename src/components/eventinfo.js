@@ -50,6 +50,11 @@ class EventInfo extends Component {
         });
     };
 
+    handleChangeTwo = () => {
+        const newID = document.getElementById('event_industry').value;
+        this.setState({ ind: newID });
+    };
+
     handleButton = () => {
         // If participating, allow for un-RSVP; if organizer, allow for deleting
         if (this.props.location.eventData.participating === 1) {
@@ -57,7 +62,6 @@ class EventInfo extends Component {
                 return (
                     <div>
                         <Button onClick={() => this.props.deleteEvent(this.props.location.eventData.id, this.props.history)}>Delete</Button>
-                        <Button onClick={() => this.updateEvent(this.props.location.eventData)}>Edit</Button>
                     </div>
                 );
             } else {
@@ -83,125 +87,126 @@ class EventInfo extends Component {
             user: this.props.user.id,
         };
 
-        this.props.updateEvent(this.props.location.eventData.id, event);
+        this.props.updateEvent(this.props.location.eventData.id, event, this.props.history);
         this.setState({
             isEditing: false,
         });
     }
 
-    // Retrieves events for current person8
+    // Retrieves events for current person
     getIndustries = () => {
         return (
             this.state.industryList.map((item) => {
                 return (
-                    <option selected={item.IndustryID === this.state.ind} key={item.IndustryID} value={this.state.ind}>{item.IndustryName}</option>
+                    <option key={item.IndustryID} value={item.IndustryID}>{item.IndustryName}</option>
                 );
             })
         );
     }
 
-      renderEvent = () => {
-          if (this.state.isEditing) {
-              return (
-                  <div className="new-content">
-                      <div className="title">Edit event</div>
-                      <Form noValidate>
-                          <Form.Row>
-                              <Form.Group controlId="event_name">
-                                  <Form.Label>Event Name</Form.Label>
-                                  <Form.Control
-                                      required
-                                      type="text"
-                                      value={this.state.name}
-                                      maxLength={255}
-                                      onChange={this.handleChange('name')}
-                                  />
-                              </Form.Group>
-                          </Form.Row>
-                          <Form.Row>
-                              <Form.Group as={Col} controlId="event_time">
-                                  <Form.Label>Event Time</Form.Label>
-                                  <Form.Control
-                                      type="text"
-                                      required
-                                      value={this.state.time}
-                                      onChange={this.handleChange('time')}
-                                  />
-                              </Form.Group>
-                              <Form.Group as={Col} controlId="event_industry">
-                                  <Form.Label>Industry</Form.Label>
-                                  <Form.Control as="select" value={this.state.ind} onChange={this.handleChange('ind')}>
-                                      {this.getIndustries()}
-                                  </Form.Control>
-                              </Form.Group>
-                          </Form.Row>
-                          <Form.Row>
-                              <Form.Group controlId="event_desc">
-                                  <Form.Label>Event Description</Form.Label>
-                                  <Form.Control
-                                      type="text"
-                                      required
-                                      maxLength={255}
-                                      value={this.state.desc}
-                                      onChange={this.handleChange('desc')}
-                                  />
+    renderEvent = () => {
+        if (this.state.isEditing) {
+            return (
+                <div className="new-content">
+                    <div className="title">Edit event</div>
+                    <Form noValidate>
+                        <Form.Row>
+                            <Form.Group controlId="event_name">
+                                <Form.Label>Event Name</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="text"
+                                    value={this.state.name}
+                                    maxLength={255}
+                                    onChange={this.handleChange('name')}
+                                />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="event_time">
+                                <Form.Label>Event Time</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    required
+                                    value={this.state.time}
+                                    onChange={this.handleChange('time')}
+                                />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="event_industry">
+                                <Form.Label>Industry</Form.Label>
+                                <Form.Control as="select" value={this.state.ind} onChange={this.handleChangeTwo}>
+                                    {this.getIndustries()}
+                                </Form.Control>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group controlId="event_desc">
+                                <Form.Label>Event Description</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    required
+                                    maxLength={255}
+                                    value={this.state.desc}
+                                    onChange={this.handleChange('desc')}
+                                />
 
-                              </Form.Group>
-                          </Form.Row>
-                          <div className="buttons">
-                              <Button onClick={() => {
-                                  this.updateEvent(
-                                  );
-                                  this.setState({ isEditing: false });
-                              }}
-                              >Update
-                              </Button>
-                              <Button onClick={() => { this.setState({ isEditing: false }); }}>Cancel</Button>
-                          </div>
-                      </Form>
-                  </div>
+                            </Form.Group>
+                        </Form.Row>
+                        <div className="buttons">
+                            <Button onClick={() => {
+                                this.updateEvent(
+                                );
+                                this.setState({ isEditing: false });
+                                this.props.history.push('/eventlist');
+                            }}
+                            >Update
+                            </Button>
+                            <Button onClick={() => { this.setState({ isEditing: false }); }}>Cancel</Button>
+                        </div>
+                    </Form>
+                </div>
 
-              );
-          } else {
-              return (
-                  <div className="new-content">
-                      <Error />
-                      <div>
-                          {this.state.name}
-                      </div>
-                      <div>
-                          {(new Date(this.state.time)).toLocaleDateString()}
-                      </div>
-                      <div>
-                          {this.handleIndustry()}
-                      </div>
-                      <div>
-                          Organizer email: {this.props.location.eventData.orgemail}
-                      </div>
-                      <div>
-                          {this.state.desc}
-                      </div>
-                      {this.handleButton()}
-                      <Button onClick={() => {
-                          this.setState({
-                              isEditing: true,
-                          });
-                      }}
-                      >Edit
-                      </Button>
-                      <Button onClick={() => this.props.history.push(this.props.location.eventData.originpath)}>Back</Button>
-                  </div>
-              );
-          }
-      }
+            );
+        } else {
+            return (
+                <div className="new-content">
+                    <Error />
+                    <div>
+                        {this.state.name}
+                    </div>
+                    <div>
+                        {(new Date(this.state.time)).toLocaleDateString()}
+                    </div>
+                    <div>
+                        {this.handleIndustry()}
+                    </div>
+                    <div>
+                        Organizer email: {this.props.location.eventData.orgemail}
+                    </div>
+                    <div>
+                        {this.state.desc}
+                    </div>
+                    {this.handleButton()}
+                    <Button onClick={() => {
+                        this.setState({
+                            isEditing: true,
+                        });
+                    }}
+                    >Edit
+                    </Button>
+                    <Button onClick={() => this.props.history.push(this.props.location.eventData.originpath)}>Back</Button>
+                </div>
+            );
+        }
+    }
 
-      render() {
-          return (
-              <div className="event">
-                  {this.renderEvent()}
-              </div>
-          );
-      }
+    render() {
+        return (
+            <div className="event">
+                {this.renderEvent()}
+            </div>
+        );
+    }
 }
 
 // react-redux glue -- outputs Container that know state in props

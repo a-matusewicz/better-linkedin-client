@@ -193,24 +193,26 @@ export function createEvent(event, history) {
 }
 
 // update event then return to events page
-export function updateEvent(id, event) {
+export function updateEvent(id, event, history) {
     return (dispatch) => {
         axios.put(`${ROOT_URL}/events/updateEvent/${id}`, event)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
+                history.push('/eventlist');
                 return response.data;
             });
     };
 }
 
 // update group then return to group page
-export function updateGroup(id, group) {
+export function updateGroup(id, group, history) {
     return (dispatch) => {
         axios.put(`${ROOT_URL}/groups/updateGroup/${id}`, group)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {
+                history.push('/grouplist');
                 return response.data;
             });
     };

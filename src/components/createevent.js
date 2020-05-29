@@ -54,7 +54,7 @@ class CreateEvent extends Component {
         this.setState({ chosenID: newID });
     }
 
-    // Retrieves events for current person8
+    // Retrieves events for current person
     getIndustries = () => {
         return (
             this.state.industryList.map((item) => {

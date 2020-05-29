@@ -67,8 +67,6 @@ class GroupInfo extends Component {
 
     handleChangeTwo = () => {
         const newID = document.getElementById('group_industry').value;
-        console.log(newID);
-
         this.setState({ ind: newID });
     };
 
@@ -81,18 +79,18 @@ class GroupInfo extends Component {
             user: this.props.user.id,
         };
 
-        this.props.updateGroup(this.props.location.groupData.id, group);
+        this.props.updateGroup(this.props.location.groupData.id, group, this.props.history);
         this.setState({
             isEditing: false,
         });
     }
 
-    // Retrieves groups for current person8
+    // Retrieves events for current person
     getIndustries = () => {
         return (
             this.state.industryList.map((item) => {
                 return (
-                    <option selected={item.IndustryID === this.state.ind} key={item.IndustryID} value={this.state.ind}>{item.IndustryName}</option>
+                    <option key={item.IndustryID} value={item.IndustryID}>{item.IndustryName}</option>
                 );
             })
         );
@@ -142,6 +140,7 @@ class GroupInfo extends Component {
                                 this.updateGroup(
                                 );
                                 this.setState({ isEditing: false });
+                                this.props.history.push('/grouplist');
                             }}
                             >Update
                             </Button>
