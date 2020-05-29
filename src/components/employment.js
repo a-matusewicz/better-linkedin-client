@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
 import { withRouter, NavLink } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Error from './error';
