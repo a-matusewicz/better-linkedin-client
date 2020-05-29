@@ -192,6 +192,18 @@ export function createEvent(event, history) {
     };
 }
 
+// update event then return to events page
+export function updateEvent(id, event) {
+    return (dispatch) => {
+        axios.put(`${ROOT_URL}/events/updateEvent/${id}`, event)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                return response.data;
+            });
+    };
+}
+
 // Gets list of events for current user
 export function fetchUserEvents(personId, callback) {
     return (dispatch) => {
@@ -210,6 +222,20 @@ export function fetchUserEvents(personId, callback) {
 export function fetchEvents(callback) {
     return (dispatch) => {
         axios.get(`${ROOT_URL}/events/getEvents`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
+// Get a spcecific event to edit
+export function fetchEvent(eventID, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/events/${eventID}`)
             .catch((error) => {
                 return dispatch(authError(error.response));
             }).then((response) => {

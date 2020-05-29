@@ -28,6 +28,7 @@ import CompanyList from './companylist';
 import Company from './company';
 import CreateCompany from './createcompany';
 
+
 const About = (props) => {
     return <div> All there is to know about me </div>;
 };
