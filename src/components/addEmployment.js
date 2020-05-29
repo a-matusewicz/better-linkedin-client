@@ -95,6 +95,7 @@ class addEmploy extends Component {
                                 required
                                 type="text"
                                 placeholder="######"
+                                maxLength={255}
                             />
                             <Form.Control.Feedback type="invalid" id="username-feedback">
                                 Please enter a Company Position.
@@ -129,7 +130,7 @@ class addEmploy extends Component {
                     <Form.Row>
                         <Form.Group controlId="description">
                             <Form.Label>Enter Description of Position</Form.Label>
-                            <Form.Control as="textarea" rows="3" />
+                            <Form.Control as="textarea" rows="3" maxLength={255} />
                         </Form.Group>
                     </Form.Row>
                     <div className="buttons">
