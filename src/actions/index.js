@@ -88,6 +88,21 @@ export function signoutUser(history, callback) {
     };
 }
 
+// update event then return to events page
+export function updatePerson(id, person, callback) {
+    return (dispatch) => {
+        axios.put(`${ROOT_URL}/users/${id}`, person)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback) {
+                    callback();
+                }
+                return response.data;
+            });
+    };
+}
+
 // Gets information on current user
 export function fetchUser(token, callback) {
     return (dispatch) => {

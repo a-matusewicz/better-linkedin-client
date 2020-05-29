@@ -31,7 +31,7 @@ class Nav extends Component {
                 <div className="sign-out">
                     <div>
                         <NavLink className="brand" to="/">Better-LinkedIn</NavLink>
-                        <NavLink to="/about">About</NavLink>
+                        <NavLink to="/profile">My Profile</NavLink>
                         <NavLink to="/company">Companies</NavLink>
                         <NavLink to="/employment">Employment</NavLink>
                         <NavLink to="/event">Events</NavLink>
