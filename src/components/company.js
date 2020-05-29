@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -13,12 +14,41 @@ class Company extends Component {
         this.state = {
             company: {},
             employees: [],
+            isAdmin: false,
         };
     }
 
     componentDidMount() {
         this.props.fetchCompany(this.props.companyID, (company) => this.setState({ company }));
-        this.props.fetchEmployees(this.props.companyID, (employees) => this.setState({ employees }));
+        this.props.fetchEmployees(this.props.companyID, (employees) => {
+            this.setState({ employees });
+            const user = employees.filter((e) => e.PersonID === this.props.user.id);
+            this.setState({ isAdmin: user[0] && user[0].Admin === 1 });
+        });
+    }
+
+    renderTrash = (employee) => {
+        if (this.state.isAdmin && employee.PersonID !== this.props.user.id) {
+            return (
+                <td>
+                    <Button variant="secondary" onClick={() => {}}>
+                        <i className="fa fa-trash" />
+                    </Button>
+                </td>
+            );
+        } else if (this.state.isAdmin) {
+            return (
+                <td>
+                    <Button disabled variant="secondary" onClick={() => {}}>
+                        <i className="fa fa-trash" />
+                    </Button>
+                </td>
+            );
+        } else {
+            return (
+                <td />
+            );
+        }
     }
 
     renderEmployees = () => {
@@ -31,6 +61,7 @@ class Company extends Component {
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Start Date</th>
+                            {this.state.isAdmin ? <th>Remove Employee</th> : <th aria-label="Not admin" />}
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +72,7 @@ class Company extends Component {
                                     <td>{employee.LastName}</td>
                                     <td>{employee.Email}</td>
                                     <td>{(new Date(employee.StartDate)).toLocaleString()}</td>
+                                    {this.renderTrash(employee)}
                                 </tr>
                             );
                         })}
@@ -57,8 +89,7 @@ class Company extends Component {
     }
 
     renderDelete = () => {
-        const user = this.state.employees.filter((e) => e.PersonID === this.props.user.id);
-        if (user[0] && user[0].Admin === 1) {
+        if (this.state.isAdmin) {
             return <Button variant="danger" onClick={this.handleDelete}>Delete Company</Button>;
         } else {
             return <div />;
