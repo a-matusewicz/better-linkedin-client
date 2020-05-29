@@ -33,19 +33,7 @@ class Company extends Component {
         if (this.state.isAdmin) {
             return (
                 <td>
-                    <Button
-                        disabled={employee.PersonID === this.props.user.id}
-                        variant="secondary"
-                        onClick={() => {
-                            this.props.deleteEmployment({
-                                PersonID: employee.PersonID,
-                                CompanyID: this.props.companyID,
-                            });
-                            this.setState((prevState) => {
-                                return { employees: (prevState.employees.filter((e) => e.PersonID !== employee.PersonID)) };
-                            });
-                        }}
-                    >
+                    <Button disabled={employee.PersonID === this.props.user.id} variant="secondary" onClick={() => {}}>
                         <i className="fa fa-trash" />
                     </Button>
                 </td>
