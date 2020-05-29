@@ -28,18 +28,10 @@ class Company extends Component {
     }
 
     renderTrash = (employee) => {
-        if (this.state.isAdmin && employee.PersonID !== this.props.user.id) {
+        if (this.state.isAdmin) {
             return (
                 <td>
-                    <Button variant="secondary" onClick={() => {}}>
-                        <i className="fa fa-trash" />
-                    </Button>
-                </td>
-            );
-        } else if (this.state.isAdmin) {
-            return (
-                <td>
-                    <Button disabled variant="secondary" onClick={() => {}}>
+                    <Button disabled={employee.PersonID === this.props.user.id} variant="secondary" onClick={() => {}}>
                         <i className="fa fa-trash" />
                     </Button>
                 </td>
