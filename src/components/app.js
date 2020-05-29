@@ -13,6 +13,10 @@ import EventList from './eventlist';
 import CreateEvent from './createevent';
 import JoinEvent from './joinevent';
 import EventInfo from './eventinfo';
+import EmploymentInfo from './employmentinfo';
+import AddEmployment from './addEmployment';
+import EmploymentList from './employmentlist';
+import Employment from './employment';
 import Group from './group';
 import GroupList from './grouplist';
 import CreateGroup from './creategroup';
@@ -80,6 +84,12 @@ class App extends Component {
                         <PrivateRoute path="/company/new" user={this.state.user} component={(props) => <CreateCompany user={this.state.user} companyID={props.match.params.companyID} />} />
                         <Route path="/company/:companyID" component={(props) => <Company user={this.state.user} companyID={props.match.params.companyID} />} />
                         <Route path="/company" component={(props) => <CompanyList user={this.state.user} />} />
+
+                        {/* Employment Routes */}
+                        <PrivateRoute path="/addemployment" component={(props) => <AddEmployment user={this.state.user} />} />
+                        <Route path="/employment" component={(props) => <Employment user={this.state.user} />} />
+                        <Route path="/listemployment" component={(props) => <EmploymentList user={this.state.user} />} />
+                        <Route path="/employmentinfo" component={(props) => <EmploymentInfo user={this.state.user} />} />
 
                         {/* Event Routes */}
                         <Route path="/event" component={(props) => <Event user={this.state.user} />} />

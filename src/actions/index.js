@@ -246,6 +246,18 @@ export function RSVP(RSVPRecord, history) {
     };
 }
 
+// Add employment history
+export function addEmployment(employment, history) {
+    return (dispatch) => {
+        axios.post(`${ROOT_URL}/employment/add`, employment)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/employment');
+            });
+    };
+}
+
 // Gets list of all industries
 export function fetchIndustries(callback) {
     return (dispatch) => {
@@ -286,6 +298,20 @@ export function createGroup(group, history) {
     };
 }
 
+// Gets list of all Employment for a person
+export function fetchEmployment(personID, callback) {
+    return (dispatch) => {
+        axios.get(`${ROOT_URL}/users/getEmployment/${personID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                if (callback && response.data.data) {
+                    callback(response.data.data);
+                }
+            });
+    };
+}
+
 // Gets list of groups for current user
 export function fetchUserGroups(personId, callback) {
     return (dispatch) => {
@@ -296,6 +322,20 @@ export function fetchUserGroups(personId, callback) {
                 if (callback && response.data.data) {
                     callback(response.data.data);
                 }
+            });
+    };
+}
+
+// Post new event then return to events page
+export function deleteEmployment(delEmployment, history) {
+    return (dispatch) => {
+        axios.delete(`${ROOT_URL}/deleteEmployment/${delEmployment.PersonID}/${delEmployment.CompanyID}`)
+            .catch((error) => {
+                return dispatch(authError(error.response));
+            }).then((response) => {
+                history.push('/employment');
+                console.log(response.data);
+                return response.data;
             });
     };
 }

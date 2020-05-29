@@ -33,6 +33,7 @@ class Nav extends Component {
                         <NavLink className="brand" to="/">Better-LinkedIn</NavLink>
                         <NavLink to="/about">About</NavLink>
                         <NavLink to="/company">Companies</NavLink>
+                        <NavLink to="/employment">Employment</NavLink>
                         <NavLink to="/event">Events</NavLink>
                         <NavLink to="/group">Groups</NavLink>
                     </div>
