@@ -77,26 +77,6 @@ export function createUser(user, history, callback) {
     };
 }
 
-export function updateUser(user, callback) {
-    return (dispatch) => {
-        axios.put(`${ROOT_URL}/users/${user.id}`, user)
-            .catch((error) => {
-                return dispatch(authError(error.response));
-            }).then((response) => {
-                if (response.data && response.data.auth) {
-                    localStorage.setItem('JWT', response.data.token);
-
-                    if (callback) {
-                        callback({
-                            auth: response.data.auth,
-                            id: response.data.id,
-                        });
-                    }
-                }
-                return response.data;
-            });
-    };
-}
 
 // deletes token from localstorage
 // and deauths

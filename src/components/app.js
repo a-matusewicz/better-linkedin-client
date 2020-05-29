@@ -18,9 +18,7 @@ import GroupList from './grouplist';
 import CreateGroup from './creategroup';
 import JoinGroup from './joingroup';
 import GroupInfo from './groupinfo';
-import UpdateUser from './updateUser';
 import { ROOT_URL } from '../actions/index';
-// import UpdateEvent from './updateEvent';
 
 
 const About = (props) => {
@@ -90,7 +88,6 @@ class App extends Component {
                         <PrivateRoute exact path="/" user={this.state.user} component={(props) => <Welcome {...props} user={this.state.user} />} />
                         <Route path="/signin" component={(props) => <SignIn user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/signup" component={(props) => <SignUp user={this.state.user} editUser={this.editUser} />} />
-                        <Route path="/user/:userID" component={(props) => <UpdateUser user={this.state.user} editUser={this.editUser} />} />
                         <Route path="/about" component={About} />
                         <Route path="/event" component={(props) => <Event user={this.state.user} />} />
                         <Route path="/eventlist" component={(props) => <EventList user={this.state.user} />} />
