@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "jquery": "^3.4.1",
     "lodash.debounce": "^4.0.8",
     "node": "^14.2.0",
